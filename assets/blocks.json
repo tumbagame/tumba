@@ -1,0 +1,1028 @@
+{
+  "blocks": [
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone",
+      "drops": 12,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone",
+      "drops": 12,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone",
+      "drops": 12,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Diamond Ore",
+      "drops": 23,
+      "breakWith": 2,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Wood",
+      "drops": 7,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Raw Meat",
+      "drops": 8,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Cooked Meat",
+      "drops": 10,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone",
+      "drops": 12,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplegem Ore",
+      "drops": -1,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Cloudgem Ore",
+      "drops": -1,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone",
+      "drops": 12,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone",
+      "drops": 12,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone",
+      "drops": 12,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Tree",
+      "drops": 37,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Diamond",
+      "drops": 23,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Cloud",
+      "drops": 33,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Cloud",
+      "drops": 33,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Cloud",
+      "drops": 33,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplestone",
+      "drops": 36,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplestone",
+      "drops": 36,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplestone",
+      "drops": 36,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Tree",
+      "drops": 7,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Purplegem",
+      "drops": 31,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Cloud",
+      "drops": 33,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplestone",
+      "drops": 36,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Sapling",
+      "drops": 37,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Tree",
+      "drops": 7,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Cloudgem",
+      "drops": 39,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Cloud",
+      "drops": 33,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Cloud",
+      "drops": 33,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Cloud",
+      "drops": 33,
+      "breakWith": 4,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplestone",
+      "drops": 36,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplestone",
+      "drops": 36,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Purplestone",
+      "drops": 36,
+      "breakWith": 3,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Furnace",
+      "drops": 46,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Wall",
+      "drops": -1,
+      "breakWith": 47,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Wood Pickaxe",
+      "drops": 48,
+      "breakWith": 0,
+      "mineStrength": 1,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Stone Pickaxe",
+      "drops": 49,
+      "breakWith": 0,
+      "mineStrength": 2,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Diamond Pickaxe",
+      "drops": 50,
+      "breakWith": 0,
+      "mineStrength": 3,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Purplegem Pickaxe",
+      "drops": 51,
+      "breakWith": 0,
+      "mineStrength": 4,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Cloudgem Pickaxe",
+      "drops": 52,
+      "breakWith": 0,
+      "mineStrength": 5,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Grass",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Flower",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Magma",
+      "drops": 55,
+      "breakWith": 5,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Wood Sword",
+      "drops": 56,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 10,
+      "collision": false
+    },
+    {
+      "name": "Stone Sword",
+      "drops": 57,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 20,
+      "collision": false
+    },
+    {
+      "name": "Diamond Sword",
+      "drops": 58,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 30,
+      "collision": false
+    },
+    {
+      "name": "Purplegem Sword",
+      "drops": 59,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 40,
+      "collision": false
+    },
+    {
+      "name": "Cloudgem Sword",
+      "drops": 60,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 50,
+      "collision": false
+    },
+    {
+      "name": "Bone",
+      "drops": 61,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Snowman",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Snow Bush",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Cactus",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Shrub",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": false
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Dirt",
+      "drops": 9,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "",
+      "drops": -1,
+      "breakWith": 0,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    }
+  ]
+}
