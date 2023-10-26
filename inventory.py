@@ -35,3 +35,16 @@ class Inventory:
 
     def block_getter(self, index):
         return lambda: self.slots[index]
+
+    def serialize(self):
+        out_data = []
+        for slot in self.slots:
+            out_data.append(slot.item if slot.has_item() else 255)
+            out_data.append(slot.count if slot.has_item() else 0)
+        return bytes(out_data)
+
+    def load(self, in_bytes):
+        for i in range(24):
+            item_raw = in_bytes[i * 2 : i * 2 + 2]
+            self.slots[i].item = -1 if (item_raw[0] == 255) else item_raw[0]
+            self.slots[i].count = item_raw[1]

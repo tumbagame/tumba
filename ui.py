@@ -46,9 +46,10 @@ class Image(UIComponent):
 
 
 class ItemSlot(UIComponent):
-    def __init__(self, x, y, block_getter):
+    def __init__(self, x, y, block_getter, command=lambda: None):
         self.image = sprites.ITEM_SLOT
         self.block_getter = block_getter
+        self.command = command
         self.x = x
         self.y = y
         self.text = text.Text()
@@ -66,6 +67,8 @@ class ItemSlot(UIComponent):
                 clone.blit(sprites.BLOCKS[block.item], (0, 0))
                 clone.blit(sprites.ITEM_SLOT_SELECT, (0, 0))
                 clone.blit(count_text, (4, 0))
+                if mouse.left:
+                    self.command()
                 return clone
         clone.blit(sprites.BLOCKS16[block.item], (8, 8))
         clone.blit(count_text, (4, 0))

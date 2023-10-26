@@ -61,6 +61,7 @@ def create_inventory_gui(game, renderer):
                 120 + 34 * (i % 8),
                 40 + (i // 8) * 34,
                 game.player.inventory.block_getter(i),
+                game.inventory_index_setter(i),
             )
         )
     return ui.GUI(

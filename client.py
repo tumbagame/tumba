@@ -53,7 +53,10 @@ class Client:
         data = sock.recv(2048)
 
         chunk_data = data[:1024]
-        rest_data = data[1024:].decode()
+        inventory_data = data[1024:1072]
+        rest_data = data[1072:].decode()
+
+        game.player.inventory.load(inventory_data)
 
         game.tps = float(rest_data.split(",")[0])
         chunk_x = int(rest_data.split(",")[1])

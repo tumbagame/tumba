@@ -6,7 +6,7 @@ from filter import Filter
 import time
 from vector import Vector
 from mouse import Mouse
-
+import blockprop
 import ui
 
 
@@ -125,6 +125,14 @@ class Renderer:
         #     self._game_to_screen(game.player.position + game.hitbox_offset, game.camera)
         #     + (int(game.hitbox_size.x), int(game.hitbox_size.y)),
         # )
+
+        self.disp.blit(sprites.ITEM_SLOT, (10, 40))
+        slot = game.player.inventory.slots[game.inventory_index]
+        if slot.has_item():
+            self.disp.blit(blockprop.BLOCKS[slot.item].sprite, (10, 40))
+            self.disp.blit(sprites.ITEM_SLOT_SELECT, (10, 40))
+            self.disp.blit(self.text.render(f"{slot.count}"), (14, 40))
+            self.disp.blit(self.text.render(blockprop.BLOCKS[slot.item].name), (14, 72))
 
         self.disp.blit(self.gui.update(self.mouse, self.keys_down), (0, 0))
 

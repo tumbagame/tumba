@@ -594,7 +594,7 @@
     },
     {
       "name": "Snow Bush",
-      "drops": -1,
+      "drops": 7,
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,

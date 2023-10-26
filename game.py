@@ -32,11 +32,18 @@ class Game:
         self.mouse_right_trigger = BoolTrigger()
         self.in_menu = False
         self.in_inventory = False
+        self.inventory_index = 0
 
         self.fps = 1
         self.fps_filter = Filter(0.1, 1)
         self.can_air_jump = False
         self.cloud_pos = 0
+
+    def inventory_index_setter(self, index):
+        def setter():
+            self.inventory_index = index
+
+        return setter
 
     def start(self):
         self.running = True
@@ -75,7 +82,6 @@ class Game:
             pg.mouse.set_visible(False)
             block = self.world.get_block(self.selection_x, self.selection_y)
             if block != -1:
-                self.player.inventory.add_item(blockprop.BLOCKS[block].drops)
                 self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
         if self.mouse_right_trigger.is_triggered(mouse.right):
             self.to_set.append(BlockSet(self.selection_x, self.selection_y, 7))

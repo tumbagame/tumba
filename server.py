@@ -2,7 +2,7 @@ import socket
 from player import Player
 from vector import Vector
 from world import World
-import time
+import blockprop
 
 
 class Server:
@@ -34,25 +34,36 @@ class Server:
         out_dict["block"] = int(out_dict["block"])
         return out_dict
 
+    # 2048 block size
+    # 1024 byte chunk, 48 byte inventory, csv data
     def update(self, deltatime):
         conn, addr = self.sock.accept()
         data = conn.recv(2048)
         parsed = self._parse(data.decode())
-
-        self.players[parsed["id"]] = Player(
-            parsed["id"], parsed["name"], Vector(parsed["x"], parsed["y"])
-        )
+        player_id = parsed["id"]
+        if player_id not in self.players:
+            self.players[player_id] = Player(
+                player_id, parsed["name"], Vector(parsed["x"], parsed["y"])
+            )
+        else:
+            self.players[player_id].position = Vector(parsed["x"], parsed["y"])
 
         chunk_x = int((parsed["x"] - 512) / (32 * 32)) + self.offset_x
         chunk_y = int((parsed["y"] - 512) / (32 * 32)) + self.offset_y
         if int(parsed["block"]) != -2:
+            if parsed["block"] == -1:
+                old_block = self.world.get_block(int(parsed["bx"]), int(parsed["by"]))
+                self.players[player_id].inventory.add_item(
+                    blockprop.BLOCKS[old_block].drops, 1
+                )
             self.world.set_block(
                 int(parsed["bx"]), int(parsed["by"]), int(parsed["block"])
             )
 
         chunk_raw = self.world.get_chunk(chunk_x, chunk_y).serialize()
+        inventory_raw = self.players[player_id].inventory.serialize()
         chunk_data = f"{round(self.tps,2)},{chunk_x},{chunk_y}"
-        conn.sendall(chunk_raw + chunk_data.encode())
+        conn.sendall(chunk_raw + inventory_raw + chunk_data.encode())
         conn.close()
         self.offset_x += 1
         if self.offset_x > 1:
