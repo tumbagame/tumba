@@ -107,7 +107,10 @@ class Generator:
 
         block_offset = NEIGHBORS[num_neighbors]
 
-        biome_index = int(self._biome(block_x) * (len(self.biomes)))
+        biome_index = int(
+            self._biome(block_x + (self._random(block_x, block_y, 10) * 2 - 1) * 8)
+            * (len(self.biomes))
+        )
         biome = self.biomes[min(biome_index, len(self.biomes) - 1)]
         if self._random(block_x, 9) < self.structure_prob:
             structure = biome.get_structure(block_x, self._random)

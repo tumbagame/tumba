@@ -8,6 +8,7 @@ from vector import Vector
 from mouse import Mouse
 import blockprop
 import ui
+import animation
 
 
 class Renderer:
@@ -28,6 +29,8 @@ class Renderer:
         self.gui = ui.GUI()
         self.select_box = pg.Surface((32, 32), pg.SRCALPHA)
         self.select_box.fill((255, 255, 255, 127))
+
+        self.destroy = animation.Animation("assets/sprites/destroy.png", 1, 16, 1)
 
         self.keys_down = []
 
@@ -79,6 +82,11 @@ class Renderer:
                     self.mouse.left = False
                 elif e.button == 3:
                     self.mouse.right = False
+
+        if self.in_gui and self.gui.escapeable and pg.K_ESCAPE in self.keys_down:
+            self.clear_gui()
+            while pg.K_ESCAPE in self.keys_down:
+                self.keys_down.remove(pg.K_ESCAPE)
         self.mouse.position = Vector(*pg.mouse.get_pos())
         self.mouse.position.x = self.mouse.position.x / self.window.get_width() * 512
         self.mouse.position.y = self.mouse.position.y / self.window.get_height() * 256
@@ -107,17 +115,25 @@ class Renderer:
             )
 
         self.disp.blit(
-            game.player.animation.get_frame(),
-            self._game_to_screen(game.player.position, game.camera),
-        )
-
-        self.disp.blit(
-            self.select_box,
+            self.destroy.get_man_frame(0, game.destroy_timer),
             self._game_to_screen(
                 Vector(game.selection_x, game.selection_y) * 32.0,
                 game.camera,
             ),
         )
+        self.disp.blit(
+            game.player.animation.get_frame(),
+            self._game_to_screen(game.player.position, game.camera),
+        )
+
+        if game.destroy_timer < 0.01:
+            self.disp.blit(
+                self.select_box,
+                self._game_to_screen(
+                    Vector(game.selection_x, game.selection_y) * 32.0,
+                    game.camera,
+                ),
+            )
 
         # pg.draw.rect(
         #     self.disp,

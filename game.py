@@ -24,6 +24,8 @@ class Game:
         self.selection_position = Vector(0, 0)
         self.selection_x = 0
         self.selection_y = 0
+        self.prev_selection_x = 0
+        self.prev_selection_y = 0
         self.selection_reach = 3
         self.stand_timer = 0
         self.running = False
@@ -33,6 +35,7 @@ class Game:
         self.in_menu = False
         self.in_inventory = False
         self.inventory_index = 0
+        self.destroy_timer = 0
 
         self.fps = 1
         self.fps_filter = Filter(0.1, 1)
@@ -80,9 +83,32 @@ class Game:
         if self.mouse_left_trigger.is_triggered(mouse.left):
             pg.event.set_grab(True)
             pg.mouse.set_visible(False)
+        #     block = self.world.get_block(self.selection_x, self.selection_y)
+        #     if block != -1:
+        #         self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
+        if mouse.left:
             block = self.world.get_block(self.selection_x, self.selection_y)
             if block != -1:
-                self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
+                self.destroy_timer += deltatime * 2
+                if self.destroy_timer >= 1:
+                    self.world.set_block(self.selection_x, self.selection_y, -1)
+                    self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
+            else:
+                self.destroy_timer = 0
+        else:
+            self.destroy_timer = 0
+
+        if (self.selection_x, self.selection_y) != (
+            self.prev_selection_x,
+            self.prev_selection_y,
+        ):
+            self.destroy_timer = 0
+
+        self.prev_selection_x, self.prev_selection_y = (
+            self.selection_x,
+            self.selection_y,
+        )
+
         if self.mouse_right_trigger.is_triggered(mouse.right):
             self.to_set.append(BlockSet(self.selection_x, self.selection_y, 7))
         if pg.K_ESCAPE in keys:

@@ -130,6 +130,11 @@ class Button(UIComponent):
 class GUI:
     def __init__(self, *buttons):
         self.buttons = buttons
+        self.escapeable = False
+
+    def can_escape(self):
+        self.escapeable = True
+        return self
 
     def update(self, mouse, keyboard):
         screen = pg.Surface((512, 256), pg.SRCALPHA)

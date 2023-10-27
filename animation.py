@@ -5,9 +5,8 @@ import pygame as pg
 
 
 class Animation:
-
     def __init__(self, filename, num_animations, frames, fps):
-        self.delay = 1/fps
+        self.delay = 1 / fps
 
         self.animations = []
         self.index = 0
@@ -25,8 +24,8 @@ class Animation:
             anim = []
             for frame in range(frames):
                 srf = pg.Surface((frame_width, frame_height), pg.SRCALPHA)
-                srf.fill((0,)*4)
-                srf.blit(atlas, (-frame*frame_width, -an*frame_height))
+                srf.fill((0,) * 4)
+                srf.blit(atlas, (-frame * frame_width, -an * frame_height))
                 anim.append(srf)
             self.animations.append(anim)
 
@@ -41,4 +40,15 @@ class Animation:
             self.frame = (self.frame + 1) % self.num_frames
             self.prev_time = time.time()
 
-        return pg.transform.flip(self.animations[self.index][self.frame], self.mirror, False)
+        return pg.transform.flip(
+            self.animations[self.index][self.frame], self.mirror, False
+        )
+
+    def get_man_frame(self, anim_index, frame):
+        return pg.transform.flip(
+            self.animations[anim_index][
+                min(self.num_frames - 1, int(max(0, min(1, frame)) * self.num_frames))
+            ],
+            self.mirror,
+            False,
+        )

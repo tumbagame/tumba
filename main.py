@@ -69,7 +69,7 @@ def create_inventory_gui(game, renderer):
         ui.Label("Inventory", 40, 40),
         ui.Button("Done", 40, 80, lambda: resume_game(renderer)),
         *slots,
-    )
+    ).can_escape()
 
 
 def main():
