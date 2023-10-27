@@ -67,10 +67,10 @@ class Game:
         if pg.K_0 in keys:
             self.player.position.x += 100
         self.selection_x = int(
-            (self.player.position.x + self.selection_position.x * 32) / 32
+            (self.player.position.x + self.selection_position.x * 32 - 1) / 32
         )
         self.selection_y = int(
-            (self.player.position.y + self.selection_position.y * 32) / 32
+            (self.player.position.y + self.selection_position.y * 32 + 16) / 32
         )
 
         self.selection_position += mouse.velocity * 0.01
