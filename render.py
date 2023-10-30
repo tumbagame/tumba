@@ -147,7 +147,10 @@ class Renderer:
         if slot.has_item():
             self.disp.blit(blockprop.BLOCKS[slot.item].sprite, (10, 40))
             self.disp.blit(sprites.ITEM_SLOT_SELECT, (10, 40))
-            self.disp.blit(self.text.render(f"{slot.count}"), (14, 40))
+            self.disp.blit(
+                self.text.render(f"{slot.count}{'+' if (slot.count>=255) else ''}"),
+                (14, 40),
+            )
             self.disp.blit(self.text.render(blockprop.BLOCKS[slot.item].name), (14, 72))
 
         self.disp.blit(self.gui.update(self.mouse, self.keys_down), (0, 0))

@@ -60,7 +60,9 @@ class ItemSlot(UIComponent):
         if not block.has_item():
             return clone
 
-        count_text = self.text.render(f"{block.count}")
+        count_text = self.text.render(
+            f"{block.count}{'+' if block.count >= 255 else ''}"
+        )
 
         if self.x < mouse.position.x < self.x + 32:
             if self.y < mouse.position.y < self.y + 32:

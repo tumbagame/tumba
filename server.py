@@ -50,15 +50,22 @@ class Server:
 
         chunk_x = int((parsed["x"] - 512) / (32 * 32)) + self.offset_x
         chunk_y = int((parsed["y"] - 512) / (32 * 32)) + self.offset_y
-        if int(parsed["block"]) != -2:
-            if parsed["block"] == -1:
+        block = int(parsed["block"])
+        if block != -2:
+            if block == -1:
                 old_block = self.world.get_block(int(parsed["bx"]), int(parsed["by"]))
                 self.players[player_id].inventory.add_item(
                     blockprop.BLOCKS[old_block].drops, 1
                 )
-            self.world.set_block(
-                int(parsed["bx"]), int(parsed["by"]), int(parsed["block"])
-            )
+                self.world.set_block(int(parsed["bx"]), int(parsed["by"]), -1)
+            else:
+                if self.players[player_id].inventory.slots[block].has_item():
+                    self.world.set_block(
+                        int(parsed["bx"]),
+                        int(parsed["by"]),
+                        self.players[player_id].inventory.slots[block].item,
+                    )
+                    self.players[player_id].inventory.remove_item(block)
 
         chunk_raw = self.world.get_chunk(chunk_x, chunk_y).serialize()
         inventory_raw = self.players[player_id].inventory.serialize()

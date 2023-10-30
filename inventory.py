@@ -16,6 +16,7 @@ class InventorySlot:
 class Inventory:
     def __init__(self):
         self.slots = [InventorySlot() for _ in range(24)]
+        self.slots[0] = InventorySlot(12, 250)
 
     def add_item(self, item, count=1):
         if item == -1 or count == 0:
@@ -33,14 +34,20 @@ class Inventory:
             self.slots[first_open_spot].item = item
             self.slots[first_open_spot].count = count
 
+    def remove_item(self, index, count=1):
+        self.slots[index].count -= count
+        if not self.slots[index].has_item():
+            self.slots[index] = InventorySlot()
+
     def block_getter(self, index):
         return lambda: self.slots[index]
 
     def serialize(self):
         out_data = []
         for slot in self.slots:
+            item_count = slot.count if slot.has_item() else 0
             out_data.append(slot.item if slot.has_item() else 255)
-            out_data.append(slot.count if slot.has_item() else 0)
+            out_data.append(255 if item_count > 255 else item_count)
         return bytes(out_data)
 
     def load(self, in_bytes):

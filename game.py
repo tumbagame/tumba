@@ -64,8 +64,6 @@ class Game:
         self.camera.y += (camera_target.y - self.camera.y) * deltatime * 8
 
         self.move_player(keys, deltatime)
-        if pg.K_0 in keys:
-            self.player.position.x += 100
         self.selection_x = int(
             (self.player.position.x + self.selection_position.x * 32 - 1) / 32
         )
@@ -110,7 +108,9 @@ class Game:
         )
 
         if self.mouse_right_trigger.is_triggered(mouse.right):
-            self.to_set.append(BlockSet(self.selection_x, self.selection_y, 7))
+            self.to_set.append(
+                BlockSet(self.selection_x, self.selection_y, self.inventory_index)
+            )
         if pg.K_ESCAPE in keys:
             pg.event.set_grab(False)
             pg.mouse.set_visible(True)
