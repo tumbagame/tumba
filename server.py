@@ -52,14 +52,17 @@ class Server:
         chunk_y = int((parsed["y"] - 512) / (32 * 32)) + self.offset_y
         block = int(parsed["block"])
         if block != -2:
+            old_block = self.world.get_block(int(parsed["bx"]), int(parsed["by"]))
             if block == -1:
-                old_block = self.world.get_block(int(parsed["bx"]), int(parsed["by"]))
                 self.players[player_id].inventory.add_item(
                     blockprop.BLOCKS[old_block].drops, 1
                 )
                 self.world.set_block(int(parsed["bx"]), int(parsed["by"]), -1)
             else:
-                if self.players[player_id].inventory.slots[block].has_item():
+                if (
+                    self.players[player_id].inventory.slots[block].has_item()
+                    and old_block == -1
+                ):
                     self.world.set_block(
                         int(parsed["bx"]),
                         int(parsed["by"]),
