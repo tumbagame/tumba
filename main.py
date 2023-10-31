@@ -1,3 +1,4 @@
+import inventory
 from render import Renderer
 from client import Client
 from server import Server
@@ -53,6 +54,24 @@ def quit_game(renderer):
     sys.exit(0)
 
 
+def create_crafting_gui(game, renderer):
+    slots = []
+    for i in range(16):
+        slots.append(
+            ui.ItemSlot(
+                120 + 34 * (i % 8),
+                40 + (i // 8) * 34,
+                lambda: inventory.InventorySlot(),
+            )
+        )
+    return ui.GUI(
+        ui.Image("assets/sprites/ui/inventorybg.png", 30, 30),
+        ui.Label("Crafting", 40, 40),
+        ui.Button("Done", 40, 80, lambda: resume_game(renderer)),
+        *slots,
+    ).can_escape()
+
+
 def create_inventory_gui(game, renderer):
     slots = []
     for i in range(24):
@@ -68,6 +87,12 @@ def create_inventory_gui(game, renderer):
         ui.Image("assets/sprites/ui/inventorybg.png", 30, 30),
         ui.Label("Inventory", 40, 40),
         ui.Button("Done", 40, 80, lambda: resume_game(renderer)),
+        ui.Button(
+            "Crafting",
+            40,
+            120,
+            lambda: renderer.show_gui(create_crafting_gui(game, renderer)),
+        ),
         *slots,
     ).can_escape()
 
