@@ -44,7 +44,7 @@ class Client:
             block_set = BlockSet(0, 0, -2)
 
         if game.to_craft:
-            to_craft = game.to_Craft.pop(0)
+            to_craft = game.to_craft.pop(0)
         else:
             to_craft = -1
 

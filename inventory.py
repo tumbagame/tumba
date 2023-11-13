@@ -17,7 +17,6 @@ class InventorySlot:
 class Inventory:
     def __init__(self):
         self.slots = [InventorySlot() for _ in range(24)]
-        self.slots[0] = InventorySlot(7, 99)
 
     def is_possible_recipie(self, recipie):
         for requirement in recipie.recipie:
@@ -40,7 +39,7 @@ class Inventory:
         # return [InventorySlot(1, 1)]
 
     def find_item(self, item):
-        for slot, index in enumerate(self.slots):
+        for index, slot in enumerate(self.slots):
             if slot.item == item:
                 return index
         return -1

@@ -53,6 +53,7 @@ class ItemSlot(UIComponent):
         self.x = x
         self.y = y
         self.text = text.Text()
+        self.is_pressed = False
 
     def update(self, mouse, keyboard):
         block = self.block_getter()
@@ -73,6 +74,7 @@ class ItemSlot(UIComponent):
                 clone.blit(count_text, (4, 0))
                 if mouse.left:
                     self.command()
+                    mouse.left = False
                 return clone
         clone.blit(sprites.BLOCKS16[block.item], (8, 8))
         clone.blit(count_text, (4, 0))
