@@ -43,10 +43,16 @@ class Client:
         else:
             block_set = BlockSet(0, 0, -2)
 
+        if game.to_craft:
+            to_craft = game.to_Craft.pop(0)
+        else:
+            to_craft = -1
+
         message = (
             f"id:{game.player.id},name:{game.player.name},"
             + f"x:{round(game.player.position.x,2)},y:{round(game.player.position.y,2)},"
-            + f"set:{will_set},bx:{block_set.x},by:{block_set.y},block:{block_set.block}"
+            + f"set:{will_set},bx:{block_set.x},by:{block_set.y},block:{block_set.block},"
+            + f"craft:{to_craft}"
         )
 
         sock.sendall(message.encode())

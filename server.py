@@ -32,6 +32,7 @@ class Server:
         out_dict["bx"] = int(out_dict["bx"])
         out_dict["by"] = int(out_dict["by"])
         out_dict["block"] = int(out_dict["block"])
+        out_dict["craft"] = int(out_dict["craft"])
         return out_dict
 
     # 2048 block size
@@ -48,9 +49,14 @@ class Server:
         else:
             self.players[player_id].position = Vector(parsed["x"], parsed["y"])
 
+        to_craft = parsed["craft"]
+        if to_craft != -1:
+            self.players[player_id].inventory.craft(to_craft)
+
         chunk_x = int((parsed["x"] - 512) / (32 * 32)) + self.offset_x
         chunk_y = int((parsed["y"] - 512) / (32 * 32)) + self.offset_y
-        block = int(parsed["block"])
+        block = parsed["block"]
+
         if block != -2:
             old_block = self.world.get_block(int(parsed["bx"]), int(parsed["by"]))
             if block == -1:

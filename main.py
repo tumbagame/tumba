@@ -61,7 +61,8 @@ def create_crafting_gui(game, renderer):
             ui.ItemSlot(
                 120 + 34 * (i % 8),
                 40 + (i // 8) * 34,
-                lambda: inventory.InventorySlot(),
+                game.player.inventory.recipie_getter(i),
+                game.crafting_setter(i),
             )
         )
     return ui.GUI(

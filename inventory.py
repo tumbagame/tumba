@@ -1,4 +1,5 @@
 import blockprop
+import crafting
 
 
 class InventorySlot:
@@ -16,7 +17,33 @@ class InventorySlot:
 class Inventory:
     def __init__(self):
         self.slots = [InventorySlot() for _ in range(24)]
-        self.slots[0] = InventorySlot(12, 250)
+        self.slots[0] = InventorySlot(7, 99)
+
+    def is_possible_recipie(self, recipie):
+        for requirement in recipie.recipie:
+            is_possible = False
+
+            for item in self.slots:
+                if item.item == requirement.item and item.count >= requirement.count:
+                    is_possible = True
+
+            if not is_possible:
+                return False
+        return True
+
+    def get_possible_recipies(self):
+        recipies = []
+        for r in crafting.RECIPIES:
+            if self.is_possible_recipie(r):
+                recipies.append(r)
+        return recipies
+        # return [InventorySlot(1, 1)]
+
+    def find_item(self, item):
+        for slot, index in enumerate(self.slots):
+            if slot.item == item:
+                return index
+        return -1
 
     def add_item(self, item, count=1):
         if item == -1 or count == 0:
@@ -41,6 +68,22 @@ class Inventory:
 
     def block_getter(self, index):
         return lambda: self.slots[index]
+
+    def recipie_getter(self, index):
+        def func():
+            possible = self.get_possible_recipies()
+            if index >= len(possible):
+                return InventorySlot()
+            return InventorySlot(possible[index].result.item, 1)
+
+        return func
+
+    def craft(self, index):
+        recipie = self.get_possible_recipies()[index]
+        self.add_item(recipie.result.item, recipie.result.count)
+        for requirement in recipie.recipie:
+            slot = self.find_item(requirement.item)
+            self.remove_item(slot, requirement.count)
 
     def serialize(self):
         out_data = []

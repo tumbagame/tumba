@@ -36,6 +36,7 @@ class Game:
         self.in_inventory = False
         self.inventory_index = 0
         self.destroy_timer = 0
+        self.to_craft = []
 
         self.fps = 1
         self.fps_filter = Filter(0.1, 1)
@@ -48,8 +49,17 @@ class Game:
 
         return setter
 
+    def crafting_setter(self, index):
+        def setter():
+            self.craft(index)
+
+        return setter
+
     def start(self):
         self.running = True
+
+    def craft(self, index):
+        self.to_craft.append(index)
 
     def update(self, keys, mouse, deltatime):
         if not self.running:

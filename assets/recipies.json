@@ -1,0 +1,24 @@
+{
+    "recipies": [
+        {
+            "result": 47,
+            "amount": 4,
+            "recipie": [
+                {
+                    "item": 7,
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "result": 7,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 47,
+                    "count": 4
+                }
+            ]
+        }
+    ]
+}

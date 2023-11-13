@@ -378,8 +378,8 @@
     },
     {
       "name": "Wall",
-      "drops": -1,
-      "breakWith": 47,
+      "drops": 47,
+      "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
       "collision": false
