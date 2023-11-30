@@ -32,6 +32,25 @@ class UIComponent:
         return (0, 0)
 
 
+class TextInput(UIComponent):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.surface = scale_button(
+            pg.image.load("assets/sprites/ui/slot.png"), (64, 16)
+        )
+        self.text = text.Text()
+        self.current_string = "Test"
+
+    def update(self, mouse, keyboard):
+        new_surf = self.surface.copy()
+        new_surf.blit(self.text.render(self.current_string), (4, 0))
+        return new_surf
+
+    def get_pos(self):
+        return (self.x, self.y)
+
+
 class Image(UIComponent):
     def __init__(self, path, x, y):
         self.image = pg.image.load(path)

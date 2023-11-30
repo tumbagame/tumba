@@ -98,6 +98,23 @@ def create_inventory_gui(game, renderer):
     ).can_escape()
 
 
+def show_settings(renderer):
+    renderer.show_gui(
+        ui.GUI(
+            ui.Image("assets/sprites/ui/inventorybg.png", 30, 30),
+            ui.Label("Settings", 40, 40),
+            ui.Label("Username", 40, 80),
+            ui.TextInput(120, 80),
+            ui.Label("Mouse Sensitivity", 40, 100),
+            ui.Button("-", 120, 100),
+            ui.Button("+", 130, 100),
+            ui.Label("10", 145, 100),
+            ui.Label("Server Port", 40, 120),
+            ui.TextInput(120, 120),
+        ).can_escape()
+    )
+
+
 def main():
     pg.init()
     game = Game("player")
@@ -108,13 +125,12 @@ def main():
         ui.Image("assets/sprites/title.png", 20, 20),
         ui.Button("Start Game", 40, 80, lambda: start_server(renderer, game)),
         ui.Button("Join Game", 40, 120),
-        ui.Button("Settings", 40, 160),
     )
 
     menu_gui = ui.GUI(
         ui.Label("Menu", 40, 40),
         ui.Button("Resume", 40, 80, lambda: resume_game(renderer)),
-        ui.Button("Settings", 40, 120),
+        ui.Button("Settings", 40, 120, lambda: show_settings(renderer)),
         ui.Button("Quit", 40, 160, lambda: quit_game(renderer)),
     )
 

@@ -1,4 +1,5 @@
 {
-    "username": "",
-    "sensitivity": 10
+    "username": "player",
+    "sensitivity": 10,
+    "port": 5829
 }
