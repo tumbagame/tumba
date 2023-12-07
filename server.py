@@ -6,7 +6,7 @@ import blockprop
 
 
 class Server:
-    def __init__(self, port=28):
+    def __init__(self, port=2828):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind(("0.0.0.0", port))
         self.sock.listen(5)

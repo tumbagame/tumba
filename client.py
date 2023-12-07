@@ -3,7 +3,7 @@ from game import BlockSet
 
 
 class Client:
-    def __init__(self, ip="127.0.0.1", port=28):
+    def __init__(self, ip="127.0.0.1", port=2828):
         self.ip = ip
         self.port = port
 
@@ -34,7 +34,7 @@ class Client:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             sock.connect((self.ip, self.port))
-        except ConnectionRefusedError:
+        except ConnectionRefusedError as e:
             print("Connection Refused")
             return
         will_set = 1 if game.to_set else 0

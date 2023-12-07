@@ -67,7 +67,7 @@ class Generator:
             self.biomes.append(Biome(biome))
 
     def _random(self, x, y, z=0):
-        return self.noise.noise3d(x * 999.99, y * 999.99, z * 999.99) * 0.5 + 0.5
+        return self.noise.noise3(x * 999.99, y * 999.99, z * 999.99) * 0.5 + 0.5
 
     def _get_region(self, block_x, block_y):
         for region in self.regions:
@@ -79,13 +79,13 @@ class Generator:
         return self.regions[self.default_region]
 
     def _cave(self, block_x, block_y):
-        return self.noise.noise2d(block_x * self.size, block_y * self.size)
+        return self.noise.noise2(block_x * self.size, block_y * self.size)
 
     def _hill(self, block_x):
-        return int(self.noise.noise2d(block_x * self.size, 0) * self.height)
+        return int(self.noise.noise2(block_x * self.size, 0) * self.height)
 
     def _biome(self, block_x):
-        return self.noise.noise2d(block_x * self.biome_size, -1) * 0.5 + 0.5
+        return self.noise.noise2(block_x * self.biome_size, -1) * 0.5 + 0.5
 
     def _terrain(self, block_x, block_y, threshold):
         if block_y < self._hill(block_x) and block_y > self.sky:
