@@ -19,6 +19,7 @@ def run_server(renderer):
         now = time()
         server.update(deltatime)
         deltatime = time() - now
+    server.shutdown()
     print("Server Shut Down")
 
 

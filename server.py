@@ -19,6 +19,9 @@ class Server:
         self.offset_y = 0
         self.tps = 1
 
+    def shutdown(self):
+        self.sock.close()
+
     def _parse(self, data):
         out_dict = {}
         pairs = data.split(",")
