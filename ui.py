@@ -40,11 +40,23 @@ class TextInput(UIComponent):
             pg.image.load("assets/sprites/ui/slot.png"), (64, 16)
         )
         self.text = text.Text()
-        self.current_string = "Test"
+        self.current_string = ""
+        self.selected = False
 
     def update(self, mouse, keyboard):
+        if mouse.left:
+            if (self.x < mouse.position.x < self.x + self.surface.get_width()) and\
+                (self.y < mouse.position.y < self.y + self.surface.get_height()):
+                self.selected = True
+            else:
+                self.selected = False
+                    
+        if self.selected:
+            # TODO: Handle keyboard input
+            pass
+
         new_surf = self.surface.copy()
-        new_surf.blit(self.text.render(self.current_string), (4, 0))
+        new_surf.blit(self.text.render(f"{self.current_string[-10:-1]}{'|' if self.selected else ''}"), (4, 0))
         return new_surf
 
     def get_pos(self):
