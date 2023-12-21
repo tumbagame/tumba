@@ -93,7 +93,7 @@ class Generator:
         if self._cave(block_x, block_y) < threshold:
             return True
 
-        return -False
+        return False
 
     def _get_block(self, block_x, block_y):
         region = self._get_region(block_x, block_y)
