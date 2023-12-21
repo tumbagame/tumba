@@ -1,7 +1,7 @@
 import pygame as pg
 import sprites
 import text
-
+import kbtyping
 
 def scale_button(image, size):
     new_surface = pg.Surface(size)
@@ -42,6 +42,7 @@ class TextInput(UIComponent):
         self.text = text.Text()
         self.current_string = ""
         self.selected = False
+        self.typer = kbtyping.Typer()
 
     def update(self, mouse, keyboard):
         if mouse.left:
@@ -52,8 +53,7 @@ class TextInput(UIComponent):
                 self.selected = False
                     
         if self.selected:
-            # TODO: Handle keyboard input
-            pass
+            self.current_string += self.typer.get_char(keyboard)
 
         new_surf = self.surface.copy()
         new_surf.blit(self.text.render(f"{self.current_string[-10:-1]}{'|' if self.selected else ''}"), (4, 0))
