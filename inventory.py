@@ -17,6 +17,8 @@ class InventorySlot:
 class Inventory:
     def __init__(self):
         self.slots = [InventorySlot() for _ in range(24)]
+        self.slots[0].item = 7
+        self.slots[0].count = 100
 
     def is_possible_recipie(self, recipie):
         for requirement in recipie.recipie:
