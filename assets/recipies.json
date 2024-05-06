@@ -43,6 +43,21 @@
                     "count": 5
                 }
             ]
+        },
+        {
+            "result": 50,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 23,
+                    "count": 5
+                },
+                {
+                    "item": 7,
+                    "count": 5
+                }
+            ]
         }
+
     ]
 }
