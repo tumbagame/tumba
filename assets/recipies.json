@@ -19,6 +19,16 @@
                     "count": 4
                 }
             ]
+        },
+        {
+            "result": 48,
+            "amount": 100,
+            "recipie": [
+                {
+                    "item": 7,
+                    "count": 10
+                }
+            ]
         }
     ]
 }

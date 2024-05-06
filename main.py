@@ -11,8 +11,9 @@ import ui
 import mouse
 
 
+DEBUG_PORT = 8090
 def run_server(renderer):
-    server = Server()
+    server = Server(port=DEBUG_PORT)
     print("Server Started")
     deltatime = 0
     while renderer.running:
@@ -25,7 +26,7 @@ def run_server(renderer):
 
 def run_client(renderer, game):
     sleep(1)
-    client = Client()
+    client = Client(port=DEBUG_PORT)
     print("Client Connected")
     while renderer.running:
         client.update(game)
@@ -35,6 +36,7 @@ def run_client(renderer, game):
 
 
 def start_server(renderer, game):
+
     server_thread = threading.Thread(target=run_server, args=[renderer])
     server_thread.start()
     client_thread = threading.Thread(target=run_client, args=[renderer, game])

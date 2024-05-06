@@ -37,7 +37,8 @@ class Client:
         except ConnectionRefusedError as e:
             print("Connection Refused")
             return
-        will_set = 1 if game.to_set else 0
+        # will_set = 1 if game.to_set else 0
+        will_set = bool(game.to_set)
         if will_set:
             block_set = game.to_set.pop(0)
         else:
