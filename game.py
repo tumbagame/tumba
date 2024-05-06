@@ -96,7 +96,9 @@ class Game:
         #         self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
         if mouse.left:
             block = self.world.get_block(self.selection_x, self.selection_y)
-            if block != -1:
+            holding = self.player.inventory.slots[self.inventory_index].item
+            breakable = blockprop.BLOCKS[block].breaks_with <= blockprop.BLOCKS[holding].mine_strength
+            if block != -1 and breakable:
                 self.destroy_timer += deltatime * 2
                 if self.destroy_timer >= 1:
                     self.world.set_block(self.selection_x, self.selection_y, -1)
