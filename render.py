@@ -23,6 +23,8 @@ class Renderer:
         self.running = True
 
         self.text = Text()
+        self.fps_update = 0
+        self.fps_text = ""
 
         self.width_filt = Filter(0.5, self.size[0])
         self.height_filt = Filter(0.5, self.size[1])
@@ -31,7 +33,6 @@ class Renderer:
         self.select_box.fill((255, 255, 255, 127))
 
         self.destroy = animation.Animation("assets/sprites/destroy.png", 1, 16, 1)
-
         self.keys_down = []
 
         self.mouse = Mouse()
@@ -156,8 +157,12 @@ class Renderer:
         self.disp.blit(self.gui.update(self.mouse, self.keys_down), (0, 0))
 
         if version.DEBUG:
+            self.fps_update += 1
+            if self.fps_update > 60:
+                self.fps_update = 0
+                self.fps_text = f"{round(game.fps,2)}fps, {game.tps}tps"
             self.disp.blit(
-                self.text.render(f"{round(game.fps,2)}fps, {game.tps}tps"), (8, 8)
+                self.text.render(self.fps_text), (8, 8)
             )
 
         self.window.blit(
