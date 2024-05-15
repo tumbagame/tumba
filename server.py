@@ -3,7 +3,7 @@ from player import Player
 from vector import Vector
 from world import World
 import blockprop
-
+import netencode
 
 class Server:
     def __init__(self, port=2828):
@@ -23,19 +23,18 @@ class Server:
         self.sock.close()
 
     def _parse(self, data):
+        decoder = netencode.PacketDecoder(data)
         out_dict = {}
-        pairs = data.split(",")
-        for pair in pairs:
-            key, val = pair.split(":")
-            out_dict[key] = val
-        out_dict["id"] = int(out_dict["id"])
-        out_dict["x"] = float(out_dict["x"])
-        out_dict["y"] = float(out_dict["y"])
-        out_dict["set"] = out_dict["set"] == "1"
-        out_dict["bx"] = int(out_dict["bx"])
-        out_dict["by"] = int(out_dict["by"])
-        out_dict["block"] = int(out_dict["block"])
-        out_dict["craft"] = int(out_dict["craft"])
+  
+        out_dict["id"] = netencode.decode_byte(decoder.pop_data(1))
+        out_dict["name"] = (decoder.pop_data(8)).decode()
+        out_dict["x"] = netencode.decode_int(decoder.pop_data(4))
+        out_dict["y"] = netencode.decode_int(decoder.pop_data(4))
+        out_dict["set"] = bool(netencode.decode_byte(decoder.pop_data(1)))
+        out_dict["bx"] = netencode.decode_int(decoder.pop_data(4))
+        out_dict["by"] = netencode.decode_int(decoder.pop_data(4))
+        out_dict["block"] = netencode.decode_short(decoder.pop_data(2))
+        out_dict["craft"] = netencode.decode_short(decoder.pop_data(2))
         return out_dict
 
     # 2048 block size
@@ -43,7 +42,7 @@ class Server:
     def update(self, deltatime):
         conn, addr = self.sock.accept()
         data = conn.recv(2048)
-        parsed = self._parse(data.decode())
+        parsed = self._parse(data)
         player_id = parsed["id"]
         if player_id not in self.players:
             self.players[player_id] = Player(
@@ -81,8 +80,8 @@ class Server:
 
         chunk_raw = self.world.get_chunk(chunk_x, chunk_y).serialize()
         inventory_raw = self.players[player_id].inventory.serialize()
-        chunk_data = f"{round(self.tps,2)},{chunk_x},{chunk_y}"
-        conn.sendall(chunk_raw + inventory_raw + chunk_data.encode())
+        chunk_position_data = netencode.encode_int(chunk_x) + netencode.encode_int(chunk_y)
+        conn.sendall(chunk_raw + inventory_raw + chunk_position_data)
         conn.close()
         self.offset_x += 1
         if self.offset_x > 1:

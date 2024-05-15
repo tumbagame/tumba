@@ -1,6 +1,6 @@
 import socket
 from game import BlockSet
-
+import netencode
 
 class Client:
     def __init__(self, ip="127.0.0.1", port=2828):
@@ -37,7 +37,6 @@ class Client:
         except ConnectionRefusedError as e:
             print("Connection Refused")
             return
-        # will_set = 1 if game.to_set else 0
         will_set = bool(game.to_set)
         if will_set:
             block_set = game.to_set.pop(0)
@@ -50,24 +49,30 @@ class Client:
             to_craft = -1
 
         message = (
-            f"id:{game.player.id},name:{game.player.name},"
-            + f"x:{round(game.player.position.x,2)},y:{round(game.player.position.y,2)},"
-            + f"set:{will_set},bx:{block_set.x},by:{block_set.y},block:{block_set.block},"
-            + f"craft:{to_craft}"
+            netencode.encode_byte(game.player.id) + # 1 byte id
+            netencode.encode_string(game.player.name, 8) + # 8 byte username
+            netencode.encode_int(game.player.position.x) + # 4 byte x position
+            netencode.encode_int(game.player.position.y) + # 4 byte y position
+            netencode.encode_byte(will_set) + # 1 byte set flag
+            netencode.encode_int(block_set.x) + # 4 byte block x
+            netencode.encode_int(block_set.y) + # 4 byte block y
+            netencode.encode_short(block_set.block) + # 2 byte block type
+            netencode.encode_short(to_craft) # 2 byte crafting             
         )
 
-        sock.sendall(message.encode())
+        sock.sendall(message)
         data = sock.recv(2048)
 
         chunk_data = data[:1024]
         inventory_data = data[1024:1072]
-        rest_data = data[1072:].decode()
+        chunk_position = data[1072:1072+8]
+        rest_data = data[1072+8:].decode()
 
         game.player.inventory.load(inventory_data)
 
-        game.tps = float(rest_data.split(",")[0])
-        chunk_x = int(rest_data.split(",")[1])
-        chunk_y = int(rest_data.split(",")[2])
+        game.tps = 1
+        chunk_x = netencode.decode_int(chunk_position[0:4])
+        chunk_y = netencode.decode_int(chunk_position[4:8])
         game.world.get_chunk(chunk_x, chunk_y).load_bytes(chunk_data)
         game.world.get_chunk(chunk_x, chunk_y).load_surface()
         sock.close()
