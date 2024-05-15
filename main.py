@@ -11,7 +11,7 @@ import ui
 import mouse
 
 
-DEBUG_PORT = 8080
+DEBUG_PORT = 8082
 def run_server(renderer):
     server = Server(port=DEBUG_PORT)
     print("Server Started")
