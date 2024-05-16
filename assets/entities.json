@@ -1,0 +1,15 @@
+{
+    "entities": [
+        {
+            "animation": "assets/chest.png",
+            "frames": 1,
+            "fps": 1,
+            "health": 1,
+            "damage": 1,
+            "drop": -1,
+            "hostile": false,
+            "scared": false,
+            "lifetime": 86400
+        }
+    ]
+}

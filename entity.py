@@ -2,6 +2,7 @@ from vector import Vector
 from animation import Animation
 import netencode
 import random
+import json
 
 class Entity:
     def __init__(self):
@@ -9,14 +10,14 @@ class Entity:
         self.type = 0
         self.position = Vector()
         self.velocity = Vector()
-        self.animation = Animation()
+        self.animation = Animation("assets/chest.png", 1, 1, 1)
         self.health = 100
         self.damage = 10
         self.drop = -1
         self.is_hostile = False
         self.is_scared = False
         self.gravity = False
-        self.lifetime = 0
+        self.lifetime = 86400
 
     def serialize(self):
         return netencode.encode_byte(self.id) + self.encode_byte(self.type) + 
@@ -61,3 +62,19 @@ class Entity:
     def with_lifetime(self, lifetime):
         self.lifetime = lifetime
         return self
+
+def load_dict(entity_dict):
+    return Entity().with_animation(Animation(entity_dict["animation"]), 1, entity_dict["frames"], entity_dict["fps"])
+            .with_health(entity_dict["health"])
+            .with_damage(entity_dict["damage"])
+            .with_drop(entity_dict["drop"])
+            .with_hostility(entity_dict["hostile"])
+            .with_fear(entity_dict["scared"])
+            .with_lifetime(entity_dict["lifetime"])
+
+
+ENTITIES = []
+with open('assets/entities.json', 'r') as fp:
+    entity_list = json.loads(fp.read())["entities"]
+for entity in entity_list:
+    ENTITIES.append(load_dict(entity))
