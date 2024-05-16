@@ -4,6 +4,7 @@ from vector import Vector
 from world import World
 import blockprop
 import netencode
+import entity
 
 class Server:
     def __init__(self, port=2828):
@@ -12,6 +13,8 @@ class Server:
         self.sock.listen(5)
         self.loops = 0
         self.players = {}
+
+        self.entities = [entity.ENTITIES[0].clone()]
 
         self.world = World(True)
 
@@ -38,8 +41,10 @@ class Server:
         return out_dict
 
     # 2048 block size
-    # 1024 byte chunk, 48 byte inventory, csv data
+    # 1024 byte chunk, 48 byte inventory
     def update(self, deltatime):
+
+
         conn, addr = self.sock.accept()
         data = conn.recv(2048)
         parsed = self._parse(data)
