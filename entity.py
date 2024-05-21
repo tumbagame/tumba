@@ -91,7 +91,7 @@ def load_dict(entity_dict, index):
         ).with_hostility(entity_dict["hostile"]
         ).with_fear(entity_dict["scared"]
         ).with_lifetime(entity_dict["lifetime"]
-        ).with_gravity(entity_dict.gravity
+        ).with_gravity(entity_dict["gravity"]
         ).with_type(index)
 
 
