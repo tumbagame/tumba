@@ -14,8 +14,6 @@ class Server:
         self.loops = 0
         self.players = {}
 
-        self.entities = [entity.ENTITIES[0].clone()]
-
         self.world = World(True)
 
         self.offset_x = 0
