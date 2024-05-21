@@ -8,6 +8,7 @@ import physics
 from time import sleep
 from control import BoolTrigger
 import blockprop
+import version
 
 
 class Game:
