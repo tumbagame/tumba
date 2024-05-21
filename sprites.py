@@ -5,6 +5,8 @@ MOUNTAINS0 = pg.image.load("assets/sprites/mountains0.png")
 MOUNTAINS1 = pg.image.load("assets/sprites/mountains1.png")
 PLAYER = pg.image.load("assets/sprites/player/idle.png")
 ATLAS = pg.image.load("assets/sprites/atlas.png")
+CAVE = pg.image.load("assets/sprites/cave.png")
+LIGHT = pg.image.load("assets/sprites/light.png")
 
 BUTTON = pg.image.load("assets/sprites/ui/button.png")
 BUTTON_PRESSED = pg.image.load("assets/sprites/ui/button_pressed.png")

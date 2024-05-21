@@ -109,6 +109,17 @@ class Renderer:
                 (int(-game.camera.x / 2) % 512 - 512 + (i * 512), 0),
             )
 
+
+        cave_opacity = max(0, min(1, (game.player.position.y - (16 * 32)) / ((32 - 16) * 32)))
+
+        cave_clone = sprites.CAVE.copy()
+
+        cave_clone.set_alpha(int(cave_opacity * 255))
+        self.disp.blit(
+            cave_clone,
+            (int(-game.camera.x / 3) % 512 - 512, int(-game.camera.y / 3) % 512 - 512),
+        )
+
         for chunk in game.world.chunks:
             self.disp.blit(
                 game.world.chunks[chunk].surface,
@@ -126,6 +137,20 @@ class Renderer:
             game.player.animation.get_frame(),
             self._game_to_screen(game.player.position, game.camera),
         )
+
+        light_opacity = max(0, min(1, (game.player.position.y - (32 * 32)) / ((200 - 32) * 32)))
+
+        black_surface = pg.Surface((512,256), pg.SRCALPHA)
+        black_surface.fill((0,0,0,255))
+        black_surface.blit(
+            sprites.LIGHT,
+            self._game_to_screen(game.player.position - Vector(128 - 16,128 - 32), game.camera),
+            special_flags=pg.BLEND_RGBA_MIN
+        )
+
+        black_surface.set_alpha(int(light_opacity * 255))
+
+        self.disp.blit(black_surface, (0,0))
 
         if game.destroy_timer < 0.01:
             self.disp.blit(
