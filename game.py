@@ -170,7 +170,7 @@ class Game:
         )
         if self.can_air_jump and jump_triggered:
             self.player.velocity.y = -physics.JUMP_HEIGHT
-            self.can_air_jump = True
+            self.can_air_jump = version.DEBUG
 
         if self.world.collide(
             self.player.position + self.hitbox_offset, self.hitbox_size
