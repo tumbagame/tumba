@@ -53,10 +53,7 @@ class Typer:
         
         triggered = self.trigger.is_triggered(bool(keyboard))
         if triggered:
-            # print([letters[i] for i in keyboard])
-            # return "A"
             if keyboard[0] in letters:
                 return letters[keyboard[0]]
-        # if keyboard:
-        #     return letters[keyboard[0]]
+                
         return ''
