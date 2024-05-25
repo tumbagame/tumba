@@ -9,12 +9,17 @@ from game import Game
 import pygame as pg
 import ui
 import mouse
+import version
 
-
-DEBUG_PORT = 8081
+DEBUG_PORT = 8080
 def run_server(renderer):
-    server = Server(port=DEBUG_PORT)
+    if version.DEBUG:
+        server = Server(port=DEBUG_PORT)
+    else:
+        server = Server()
     print("Server Started")
+    if not server.running:
+        renderer.running = False
     deltatime = 0
     while renderer.running:
         now = time()
@@ -26,7 +31,10 @@ def run_server(renderer):
 
 def run_client(renderer, game):
     sleep(1)
-    client = Client(port=DEBUG_PORT)
+    if version.DEBUG:    
+        client = Client(port=DEBUG_PORT)
+    else:
+        client = Client()
     print("Client Connected")
     while renderer.running:
         client.update(game)

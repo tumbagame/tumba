@@ -9,7 +9,13 @@ import entity
 class Server:
     def __init__(self, port=2828):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.bind(("0.0.0.0", port))
+        self.running = True
+        try:
+            self.sock.bind(("0.0.0.0", port))
+        except OSError as e:
+            self.running = False
+            print("Error: Port already in use")
+        
         self.sock.listen(5)
         self.loops = 0
         self.players = {}
