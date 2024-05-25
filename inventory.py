@@ -1,5 +1,6 @@
 import blockprop
 import crafting
+import version
 
 
 class InventorySlot:
@@ -13,12 +14,15 @@ class InventorySlot:
     def __repr__(self):
         return f"[{self.item}, {self.count}]"
 
+debug_items = [7, 12, 61, 39, 52, 60]
 
 class Inventory:
     def __init__(self):
         self.slots = [InventorySlot() for _ in range(24)]
-        self.slots[0].item = 7
-        self.slots[0].count = 100
+        if version.DEBUG:
+            for i in debug_items:
+                self.add_item(i, 99)
+
 
     def is_possible_recipie(self, recipie):
         for requirement in recipie.recipie:
