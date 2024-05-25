@@ -1,6 +1,7 @@
 {
     "recipies": [
         {
+            "description": "Wall: 1 Wood",
             "result": 47,
             "amount": 4,
             "recipie": [
@@ -11,6 +12,7 @@
             ]
         },
         {
+            "description": "Wood: 4 Wall",
             "result": 7,
             "amount": 1,
             "recipie": [
@@ -21,6 +23,22 @@
             ]
         },
         {
+            "description": "Furnace: 5 Wood, 5 Stone",
+            "result": 46,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 12,
+                    "count": 5
+                },
+                {
+                    "item": 7,
+                    "count": 5
+                }
+            ]
+        },
+        {
+            "description": "Wood Pickaxe: 10 Wood",
             "result": 48,
             "amount": 1,
             "recipie": [
@@ -31,6 +49,7 @@
             ]
         },
         {
+            "description": "Stone Pickaxe: 5 Wood, 5 Stone",
             "result": 49,
             "amount": 1,
             "recipie": [
@@ -45,6 +64,7 @@
             ]
         },
         {
+            "description": "Diamond Pickaxe: 5 Wood, 5 Diamond",
             "result": 50,
             "amount": 1,
             "recipie": [
