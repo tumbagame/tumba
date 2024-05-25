@@ -53,10 +53,16 @@ class TextInput(UIComponent):
                 self.selected = False
                     
         if self.selected:
-            self.current_string += self.typer.get_char(keyboard)
+            type_char = self.typer.get_char(keyboard)
+            if type_char == 'backspace':
+                self.current_string = self.current_string[:-1]
+            elif type_char == 'return':
+                self.selected = False
+            else:
+                self.current_string += type_char
 
         new_surf = self.surface.copy()
-        new_surf.blit(self.text.render(f"{self.current_string[-10:-1]}{'|' if self.selected else ''}"), (4, 0))
+        new_surf.blit(self.text.render(f"{self.current_string[-10:]}{'|' if self.selected else ''}"), (4, 0))
         return new_surf
 
     def get_pos(self):

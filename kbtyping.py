@@ -38,15 +38,25 @@ letters = {
     pg.K_7: "7",
     pg.K_8: "8",
     pg.K_9: "9",
-    pg.K_SPACE: " "
+    pg.K_SPACE: " ",
+    pg.K_RETURN: "return",
+    pg.K_BACKSPACE: "backspace",
+    pg.K_PERIOD: ".",
+    pg.K_SEMICOLON: ":",
+    pg.K_SLASH: "/",
 }
 
 class Typer:
     def __init__(self):
         self.trigger = control.BoolTrigger()
     def get_char(self,keyboard):
+        
         triggered = self.trigger.is_triggered(bool(keyboard))
         if triggered:
+            # print([letters[i] for i in keyboard])
+            # return "A"
             if keyboard[0] in letters:
                 return letters[keyboard[0]]
+        # if keyboard:
+        #     return letters[keyboard[0]]
         return ''
