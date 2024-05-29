@@ -136,13 +136,13 @@ def main():
         ui.Image("assets/sprites/title.png", 20, 20),
         ui.Button("Start Game", 40, 80, lambda: start_server(renderer, game)),
         ui.Button("Join Game", 40, 120),
-        ui.Button("Settings", 40, 160, lambda: show_settings(renderer)),
     )
 
     menu_gui = ui.GUI(
         ui.Label("Menu", 40, 40),
         ui.Button("Resume", 40, 80, lambda: resume_game(renderer)),
-        ui.Button("Quit", 40, 120, lambda: quit_game(renderer)),
+        ui.Button("Settings", 40, 120, lambda: show_settings(renderer)),
+        ui.Button("Quit", 40, 160, lambda: quit_game(renderer)),
     )
 
     inventory_gui = create_inventory_gui(game, renderer)
