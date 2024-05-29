@@ -71,8 +71,7 @@ class Game:
             self.fps = self.fps_filter.process(1 / deltatime)
         self.cloud_pos -= deltatime * 15
         camera_target = self.player.position + Vector(16, 32)
-        self.camera.x += (camera_target.x - self.camera.x) * deltatime * 8
-        self.camera.y += (camera_target.y - self.camera.y) * deltatime * 8
+        self.camera += (camera_target - self.camera) * deltatime * 8
 
         self.move_player(keys, deltatime)
         self.selection_x = int(
