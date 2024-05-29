@@ -101,12 +101,12 @@ class Renderer:
         for i in range(2):
             self.disp.blit(
                 sprites.MOUNTAINS1,
-                (int(-game.camera.x / 3) % 512 - 512 + (i * 512), 0),
+                (int(-game.camera.x / 3) % 512 - 512 + (i * 512), int(-game.camera.y / 3)),
             )
         for i in range(2):
             self.disp.blit(
                 sprites.MOUNTAINS0,
-                (int(-game.camera.x / 2) % 512 - 512 + (i * 512), 0),
+                (int(-game.camera.x / 2) % 512 - 512 + (i * 512), int(-game.camera.y / 2)),
             )
 
 
@@ -200,7 +200,4 @@ class Renderer:
             ),
             (0, 0),
         )
-
         pg.display.update()
-        # while(time.time() - frame_start <= (1/60)):
-        #     pass
