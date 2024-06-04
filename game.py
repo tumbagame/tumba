@@ -38,6 +38,7 @@ class Game:
         self.inventory_index = 0
         self.destroy_timer = 0
         self.to_craft = []
+        self.entities = []
 
         self.fps = 1
         self.fps_filter = Filter(0.1, 1)

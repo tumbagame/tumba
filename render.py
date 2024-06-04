@@ -133,6 +133,12 @@ class Renderer:
                 game.camera,
             ),
         )
+
+        for e in game.entities:
+            self.disp.blit(e.animation.get_frame(),
+            self._game_to_screen(e.position, game.camera)
+        )
+
         self.disp.blit(
             game.player.animation.get_frame(),
             self._game_to_screen(game.player.position, game.camera),

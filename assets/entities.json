@@ -1,6 +1,7 @@
 {
     "entities": [
         {
+            "name": "Debug",
             "animation": "assets/sprites/chest.png",
             "frames": 1,
             "fps": 1,
@@ -8,6 +9,19 @@
             "damage": 1,
             "drop": -1,
             "hostile": false,
+            "scared": false,
+            "gravity": true,
+            "lifetime": 86400
+        },
+        {
+            "name": "Skeleton",
+            "animation": "assets/sprites/skeleton.png",
+            "frames": 16,
+            "fps": 15,
+            "health": 100,
+            "damage": 10,
+            "drop": 61,
+            "hostile": true,
             "scared": false,
             "gravity": true,
             "lifetime": 86400

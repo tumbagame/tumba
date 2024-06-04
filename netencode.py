@@ -31,3 +31,14 @@ class PacketDecoder:
 
 if __name__ == "__main__":
     print(encode_string("abc", 8))
+
+def print_bytes(byte_string):
+    out_string = ""
+    x = 0
+    for b in byte_string:
+        out_string += f"{b}, "
+        x += 1
+        if x > 7:
+            x = 0
+            out_string += '\n'
+    print(out_string)

@@ -1,6 +1,8 @@
 import socket
 from game import BlockSet
 import netencode
+import entity
+from vector import Vector
 
 class Client:
     def __init__(self, ip="127.0.0.1", port=2828):
@@ -62,12 +64,21 @@ class Client:
 
         sock.sendall(message)
         data = sock.recv(2048)
-
         chunk_data = data[:1024]
         inventory_data = data[1024:1072]
-        chunk_position = data[1072:1072+8]
-        rest_data = data[1072+8:].decode()
+        chunk_position = data[1072:1080]
+        entity_data = data[1080:1160]
 
+        entity_decoder = netencode.PacketDecoder(entity_data)
+        new_entities = []
+        for i in range(8):
+            entity_id = netencode.decode_byte(entity_decoder.pop_data(1))
+            entity_type = netencode.decode_byte(entity_decoder.pop_data(1))
+            entity_x = netencode.decode_int(entity_decoder.pop_data(4))
+            entity_y = netencode.decode_int(entity_decoder.pop_data(4))
+            new_entities.append(entity.ENTITIES[entity_type].clone().with_id(entity_id).with_position(Vector(entity_x, entity_y)))
+
+        game.entities = new_entities
         game.player.inventory.load(inventory_data)
 
         game.tps = 1

@@ -40,7 +40,9 @@ class World:
         chunk_y = block_y // 32
         return self.get_chunk(chunk_x, chunk_y).get_block(block_x % 32, block_y % 32)
 
-    def set_block(self, block_x, block_y, block):
+    def set_block(self, block_x, block_y, block, update=False):
         chunk_x = block_x // 32
         chunk_y = block_y // 32
         self.get_chunk(chunk_x, chunk_y).set_block(block_x % 32, block_y % 32, block)
+        if update:
+            self.get_chunk(chunk_x, chunk_y).load_surface()

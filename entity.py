@@ -25,10 +25,11 @@ class Entity:
 
     def with_type(self, entity_type):
         self.entity_type = entity_type
+        return self
 
     def serialize(self):
-        return netencode.encode_byte(self.id) + self.encode_byte(self.type) + \
-                self.encode_int(self.position.x) + self.encode_int(self.position.y)
+        return netencode.encode_byte(self.id) + netencode.encode_byte(self.entity_type) + \
+                netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)
 
     def with_position(self, position):
         self.position = position
@@ -72,7 +73,7 @@ class Entity:
 
     def clone(self):
         return Entity().with_animation(self.animation
-            ).with_id(randint(0,255)
+            ).with_id(random.randint(0,255)
             ).with_position(self.position
             ).with_velocity(self.velocity
             ).with_health(self.health
@@ -81,7 +82,8 @@ class Entity:
             ).with_hostility(self.is_hostile
             ).with_fear(self.is_scared
             ).with_gravity(self.gravity
-            ).with_lifetime(self.lifetime)
+            ).with_lifetime(self.lifetime
+            ).with_type(self.entity_type)
 
 def load_dict(entity_dict, index):
     return Entity().with_animation(Animation(entity_dict["animation"], 1, entity_dict["frames"], entity_dict["fps"])

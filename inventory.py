@@ -21,7 +21,7 @@ class Inventory:
         self.slots = [InventorySlot() for _ in range(24)]
         if version.DEBUG:
             for i in debug_items:
-                self.add_item(i, 99)
+                self.add_item(i, 9999)
 
 
     def is_possible_recipie(self, recipie):
