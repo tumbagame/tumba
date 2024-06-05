@@ -76,7 +76,16 @@ class Client:
             entity_type = netencode.decode_byte(entity_decoder.pop_data(1))
             entity_x = netencode.decode_int(entity_decoder.pop_data(4))
             entity_y = netencode.decode_int(entity_decoder.pop_data(4))
-            new_entities.append(entity.ENTITIES[entity_type].clone().with_id(entity_id).with_position(Vector(entity_x, entity_y)))
+            target = Vector(entity_x, entity_y)
+            direction = False
+            for ent in game.entities:
+                if ent.id == entity_id:
+                    direction = entity_x < ent.position.x
+                    target = ent.position + (Vector(entity_x,entity_y) - ent.position) * 0.2
+                    break
+            new_ent = entity.ENTITIES[entity_type].clone().with_id(entity_id).with_position(target)
+            new_ent.animation.mirror = direction
+            new_entities.append(new_ent)
 
         game.entities = new_entities
         game.player.inventory.load(inventory_data)

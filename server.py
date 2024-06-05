@@ -23,7 +23,7 @@ class Server:
         self.entities = []
 
 
-        for _ in range(8):
+        for _ in range(1):
             self.entities.append(entity.ENTITIES[1].clone().with_position(Vector(random.randint(-320, 320),-5*32)))
 
         self.world = World(True)
@@ -77,14 +77,16 @@ class Server:
             vel = ent.velocity * deltatime + Vector(0, down_acceleration) * 0.5 * deltatime * deltatime
             frame = ent.animation.get_frame()
             ent.position.y += vel.y
+            standing = False
             if self.world.collide(ent.position, Vector(frame.get_width(), frame.get_height())):
                 ent.position.y -= vel.y
                 ent.velocity.y = 0
+                standing = True
             ent.position.x += vel.x
             if self.world.collide(ent.position, Vector(frame.get_width(), frame.get_height())):
                 ent.position.x -= vel.x
                 ent.velocity.x = 0
-                if ent.is_hostile and ent.gravity:
+                if ent.is_hostile and ent.gravity and standing:
                     ent.velocity.y = -physics.JUMP_HEIGHT
 
             ent.velocity += Vector(0, down_acceleration) * deltatime
