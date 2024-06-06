@@ -39,6 +39,7 @@ class Game:
         self.destroy_timer = 0
         self.to_craft = []
         self.entities = []
+        self.damage_cooldown = 0
 
         self.fps = 1
         self.fps_filter = Filter(0.1, 1)
@@ -119,6 +120,19 @@ class Game:
             self.selection_x,
             self.selection_y,
         )
+
+        for ent in self.entities:
+            if ent.is_hostile and (((ent.position + Vector(16,32)) - (self.player.position + Vector(16,32))).length() < 32):
+                if self.damage_cooldown < 0.01:
+                    self.player.health -= ent.damage
+                    self.damage_cooldown = 0.5
+                    self.player.velocity = ((self.player.position - ent.position).norm() * physics.JUMP_HEIGHT)
+
+        if self.damage_cooldown > 0:
+            self.damage_cooldown -= deltatime
+
+        if self.player.health <= 0:
+            self.player.health = 0
 
         if self.mouse_right_trigger.is_triggered(mouse.right):
             self.to_set.append(
