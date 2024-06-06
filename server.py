@@ -54,6 +54,7 @@ class Server:
     # 2048 block size
     # 1024 byte chunk, 48 byte inventory
     def update(self, deltatime):
+        next_entities = []
         for ent in self.entities:
             closest_player = Player(0, "", Vector(0,0))
             closest_distance = 9999
@@ -90,6 +91,12 @@ class Server:
                     ent.velocity.y = -physics.JUMP_HEIGHT
 
             ent.velocity += Vector(0, down_acceleration) * deltatime
+
+            ent.lifetime -= deltatime
+            if ent.lifetime > 0 and ent.health > 0:
+                next_entities.append(ent)
+
+        self.entities = next_entities
 
 
 

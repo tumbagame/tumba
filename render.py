@@ -185,6 +185,12 @@ class Renderer:
             )
             self.disp.blit(self.text.render(blockprop.BLOCKS[slot.item].name), (14, 72))
 
+        self.disp.blit(sprites.HEALTH_BAR_EMPTY, (2, 2))
+        full_surface = pg.Surface(( int(game.player.health / 100 * 64) ,16), pg.SRCALPHA)
+        full_surface.fill((0,0,0,0))
+        full_surface.blit(sprites.HEALTH_BAR_FULL, (0,0))
+        self.disp.blit(full_surface, (2, 2))
+
         self.disp.blit(self.gui.update(self.mouse, self.keys_down), (0, 0))
 
         if version.DEBUG:
@@ -193,7 +199,7 @@ class Renderer:
                 self.fps_update = 0
                 self.fps_text = f"{round(game.fps,2)}fps, {game.tps}tps"
             self.disp.blit(
-                self.text.render(self.fps_text), (8, 8)
+                self.text.render(self.fps_text), (8, 16)
             )
 
         self.window.blit(

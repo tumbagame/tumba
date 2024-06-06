@@ -136,11 +136,11 @@ class Game:
 
     def move_player(self, keys, deltatime):
         acc = Vector()
-        if pg.K_a in keys:
+        if pg.K_a in keys or pg.K_LEFT in keys:
             acc.x = -physics.MOVE_ACCELERATION
             self.player.animation.set_animation(1)
             self.player.animation.mirror = True
-        elif pg.K_d in keys:
+        elif pg.K_d in keys or pg.K_RIGHT in keys:
             acc.x = physics.MOVE_ACCELERATION
             self.player.animation.set_animation(1)
             self.player.animation.mirror = False
@@ -167,7 +167,7 @@ class Game:
         self.player.standing = False
 
         jump_triggered = self.jump_trigger.is_triggered(
-            pg.K_w in keys or pg.K_SPACE in keys
+            pg.K_w in keys or pg.K_SPACE in keys or pg.K_UP in keys
         )
         if self.can_air_jump and jump_triggered:
             self.player.velocity.y = -physics.JUMP_HEIGHT

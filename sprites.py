@@ -12,6 +12,8 @@ BUTTON = pg.image.load("assets/sprites/ui/button.png")
 BUTTON_PRESSED = pg.image.load("assets/sprites/ui/button_pressed.png")
 ITEM_SLOT = pg.image.load("assets/sprites/ui/slot.png")
 ITEM_SLOT_SELECT = pg.image.load("assets/sprites/ui/slot_select.png")
+HEALTH_BAR_EMPTY = pg.image.load("assets/sprites/ui/health_empty.png")
+HEALTH_BAR_FULL = pg.image.load("assets/sprites/ui/health_full.png")
 
 
 BLOCKS = []
