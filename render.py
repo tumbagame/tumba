@@ -31,6 +31,7 @@ class Renderer:
         self.gui = ui.GUI()
         self.select_box = pg.Surface((32, 32), pg.SRCALPHA)
         self.select_box.fill((255, 255, 255, 127))
+        self.health_bar_state = 0
 
         self.destroy = animation.Animation("assets/sprites/destroy.png", 1, 16, 1)
         self.keys_down = []
@@ -190,9 +191,9 @@ class Renderer:
                 (14, 40),
             )
             self.disp.blit(self.text.render(blockprop.BLOCKS[slot.item].name), (14, 72))
-
+        self.health_bar_state += 0.2 * (game.player.health - self.health_bar_state)
         self.disp.blit(sprites.HEALTH_BAR_EMPTY, (2, 2))
-        full_surface = pg.Surface(( max(1, min(64, int(game.player.health / 100 * 64))) ,16), pg.SRCALPHA)
+        full_surface = pg.Surface(( max(1, min(64, int(self.health_bar_state / 100 * 64))) ,16), pg.SRCALPHA)
         full_surface.fill((0,0,0,0))
         full_surface.blit(sprites.HEALTH_BAR_FULL, (0,0))
         self.disp.blit(full_surface, (2, 2))
