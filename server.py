@@ -76,7 +76,7 @@ class Server:
                     ent.velocity.x = physics.ENTITY_SPEED * (1 if (closest_player.position.x > ent.position.x) else -1)
             
             vel = ent.velocity * deltatime + Vector(0, down_acceleration) * 0.5 * deltatime * deltatime
-            frame = ent.animation.get_frame()
+            frame = ent.animation.get_frame(0.1)
             ent.position.y += vel.y
             standing = False
             if self.world.collide(ent.position, Vector(frame.get_width(), frame.get_height())):

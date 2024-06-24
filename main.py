@@ -150,12 +150,17 @@ def main():
     renderer.show_gui(title_gui)
     blank_mouse = mouse.Mouse()
     deltatime = 0
+    dtscale = 1
     while renderer.running:
         now = time()
-        renderer.update(game)
+        renderer.update(game, deltatime * dtscale)
         game_mouse = blank_mouse if renderer.in_gui else renderer.mouse
         game_keys = [] if renderer.in_gui else renderer.keys_down
-        game.update(game_keys, game_mouse, deltatime)
+        game.update(game_keys, game_mouse, deltatime * dtscale)
+        if game.player.health < 1:
+            dtscale *= 0.8
+        else:
+            dtscale = 1
         if game.in_menu:
             game.in_menu = False
             renderer.show_gui(menu_gui)

@@ -56,7 +56,7 @@ class Renderer:
         pg.quit()
         self.running = False
 
-    def update(self, game):
+    def update(self, game, deltatime):
         if not self.running:
             return
         self.mouse.scroll = 0
@@ -135,12 +135,18 @@ class Renderer:
         )
 
         for e in game.entities:
-            self.disp.blit(e.animation.get_frame(),
+            self.disp.blit(e.animation.get_frame(deltatime),
             self._game_to_screen(e.position, game.camera)
         )
 
+
+        player_frame = game.player.animation.get_frame(deltatime)
+        damage_indicator = pg.Surface(player_frame.get_size(), pg.SRCALPHA)
+        cooldown_map = max(0, min(255, int(game.damage_cooldown / 0.5 * 255) ))
+        damage_indicator.fill((255, 255 - cooldown_map, 255-cooldown_map, 255))
+        player_frame.blit(damage_indicator,(0,0), special_flags=pg.BLEND_RGBA_MULT)
         self.disp.blit(
-            game.player.animation.get_frame(),
+            player_frame,
             self._game_to_screen(game.player.position, game.camera),
         )
 

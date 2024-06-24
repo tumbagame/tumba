@@ -34,11 +34,12 @@ class Animation:
     def set_animation(self, index):
         self.index = min(max(index, 0), self.num_animations)
 
-    def get_frame(self):
-        dt = time.time() - self.prev_time
-        if dt > self.delay:
+    def get_frame(self, dt):
+        # dt = time.time() - self.prev_time
+        self.prev_time += dt
+        if self.prev_time > self.delay:
             self.frame = (self.frame + 1) % self.num_frames
-            self.prev_time = time.time()
+            self.prev_time = 0
 
         return pg.transform.flip(
             self.animations[self.index][self.frame], self.mirror, False
