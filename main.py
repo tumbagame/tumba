@@ -11,7 +11,7 @@ import ui
 import mouse
 import version
 
-DEBUG_PORT = 8081
+DEBUG_PORT = 8080
 def run_server(renderer):
     if version.DEBUG:
         server = Server(port=DEBUG_PORT)
@@ -139,10 +139,10 @@ def main():
     )
 
     menu_gui = ui.GUI(
-        ui.Label("Menu", 40, 40),
-        ui.Button("Resume", 40, 80, lambda: resume_game(renderer)),
-        ui.Button("Settings", 40, 120, lambda: show_settings(renderer)),
-        ui.Button("Quit", 40, 160, lambda: quit_game(renderer)),
+        ui.Label("Menu", 80, 40),
+        ui.Button("Resume", 80, 80, lambda: resume_game(renderer)),
+        ui.Button("Settings", 80, 120, lambda: show_settings(renderer)),
+        ui.Button("Quit", 80, 160, lambda: quit_game(renderer)),
     )
 
     inventory_gui = create_inventory_gui(game, renderer)
