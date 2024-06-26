@@ -120,7 +120,7 @@ class Game:
         )
 
         for ent in self.entities:
-            if ent.is_hostile and physics.hitbox_collide(self.player.position + self.player.hitbox_offset, self.player.hitbox_size, ent.position + ent.hitbox_size, ent.hitbox_size):
+            if ent.is_hostile and physics.hitbox_collide(self.player.position + self.player.hitbox_offset, self.player.hitbox_size, ent.position + ent.hitbox_offset, ent.hitbox_size):
                 if self.damage_cooldown < 0.01:
                     self.player.health -= ent.damage
                     self.damage_cooldown = 0.5
