@@ -1,8 +1,8 @@
 {
     "entities": [
         {
-            "name": "Debug",
-            "animation": "assets/sprites/chest.png",
+            "name": "Empty",
+            "animation": "assets/sprites/blank.png",
             "frames": 1,
             "fps": 1,
             "health": 1,
@@ -10,8 +10,10 @@
             "drop": -1,
             "hostile": false,
             "scared": false,
-            "gravity": true,
-            "lifetime": 86400
+            "gravity": false,
+            "lifetime": 86400,
+            "hitboxSize": [1,1],
+            "hitboxOffset": [0,0]
         },
         {
             "name": "Skeleton",
@@ -24,7 +26,9 @@
             "hostile": true,
             "scared": false,
             "gravity": true,
-            "lifetime": 86400
+            "lifetime": 86400,
+            "hitboxSize": [9,60],
+            "hitboxOffset": [11,3]
         }
     ]
 }

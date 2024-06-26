@@ -10,7 +10,7 @@ class Entity:
         self.entity_type = 0
         self.position = Vector()
         self.velocity = Vector()
-        self.animation = Animation("assets/sprites/chest.png", 1, 1, 1)
+        self.animation = Animation("assets/sprites/blank.png", 1, 1, 1)
         self.health = 100
         self.damage = 10
         self.drop = -1
@@ -18,6 +18,13 @@ class Entity:
         self.is_scared = False
         self.gravity = False
         self.lifetime = 86400
+        self.hitbox_size = Vector(1,1)
+        self.hitbox_offset = Vector(0,0)
+
+    def with_hitbox(self, size, offset):
+        self.hitbox_size = size
+        self.hitbox_offset = offset
+        return self
 
     def with_id(self, id):
         self.id = id
@@ -83,9 +90,12 @@ class Entity:
             ).with_fear(self.is_scared
             ).with_gravity(self.gravity
             ).with_lifetime(self.lifetime
-            ).with_type(self.entity_type)
+            ).with_type(self.entity_type
+            ).with_hitbox(self.hitbox_size,self.hitbox_offset)
 
 def load_dict(entity_dict, index):
+    hitbox_size = entity_dict["hitboxSize"]
+    hitbox_offset = entity_dict["hitboxOffset"]
     return Entity().with_animation(Animation(entity_dict["animation"], 1, entity_dict["frames"], entity_dict["fps"])
         ).with_health(entity_dict["health"]
         ).with_damage(entity_dict["damage"]
@@ -94,7 +104,8 @@ def load_dict(entity_dict, index):
         ).with_fear(entity_dict["scared"]
         ).with_lifetime(entity_dict["lifetime"]
         ).with_gravity(entity_dict["gravity"]
-        ).with_type(index)
+        ).with_type(index
+        ).with_hitbox(Vector(*hitbox_size), Vector(*hitbox_offset))
 
 
 ENTITIES = []

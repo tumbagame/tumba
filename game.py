@@ -20,8 +20,6 @@ class Game:
         self.to_set = []
         self.tps = 1
         self.world = World()
-        self.hitbox_offset = Vector(11, 3)
-        self.hitbox_size = Vector(9, 60)
         self.selection_position = Vector(0, 0)
         self.selection_x = 0
         self.selection_y = 0
@@ -122,7 +120,7 @@ class Game:
         )
 
         for ent in self.entities:
-            if ent.is_hostile and (((ent.position + Vector(16,32)) - (self.player.position + Vector(16,32))).length() < 32):
+            if ent.is_hostile and physics.hitbox_collide(self.player.position + self.player.hitbox_offset, self.player.hitbox_size, ent.position + ent.hitbox_size, ent.hitbox_size):
                 if self.damage_cooldown < 0.01:
                     self.player.health -= ent.damage
                     self.damage_cooldown = 0.5
@@ -171,7 +169,7 @@ class Game:
 
         self.player.position.x += vel.x
         if self.world.collide(
-            self.player.position + self.hitbox_offset, self.hitbox_size
+            self.player.position + self.player.hitbox_offset, self.player.hitbox_size
         ):
             self.player.position.x -= vel.x
             self.player.velocity.x = 0
@@ -188,7 +186,7 @@ class Game:
             self.can_air_jump = version.DEBUG
 
         if self.world.collide(
-            self.player.position + self.hitbox_offset, self.hitbox_size
+            self.player.position + self.player.hitbox_offset, self.player.hitbox_size
         ):
             self.player.velocity.y = 0
             self.player.position.y -= vel.y

@@ -79,12 +79,12 @@ class Server:
             frame = ent.animation.get_frame(0.1)
             ent.position.y += vel.y
             standing = False
-            if self.world.collide(ent.position, Vector(frame.get_width(), frame.get_height())):
+            if self.world.collide(ent.position + ent.hitbox_offset, ent.hitbox_size):
                 ent.position.y -= vel.y
                 ent.velocity.y = 0
                 standing = True
             ent.position.x += vel.x
-            if self.world.collide(ent.position, Vector(frame.get_width(), frame.get_height())):
+            if self.world.collide(ent.position + ent.hitbox_offset, ent.hitbox_size):
                 ent.position.x -= vel.x
                 ent.velocity.x = 0
                 if ent.is_hostile and ent.gravity and standing:

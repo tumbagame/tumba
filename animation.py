@@ -53,3 +53,4 @@ class Animation:
             self.mirror,
             False,
         )
+
