@@ -20,6 +20,7 @@ class Entity:
         self.lifetime = 86400
         self.hitbox_size = Vector(1,1)
         self.hitbox_offset = Vector(0,0)
+        self.damage_cooldown = 0
 
     def with_hitbox(self, size, offset):
         self.hitbox_size = size

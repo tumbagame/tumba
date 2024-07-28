@@ -50,6 +50,12 @@ class Client:
         else:
             to_craft = -1
 
+        if game.attack:
+            attack_flag = 1
+            game.attack = False
+        else:
+            attack_flag = 0
+
         message = (
             netencode.encode_byte(game.player.id) + # 1 byte id
             netencode.encode_string(game.player.name, 8) + # 8 byte username
@@ -59,7 +65,8 @@ class Client:
             netencode.encode_int(block_set.x) + # 4 byte block x
             netencode.encode_int(block_set.y) + # 4 byte block y
             netencode.encode_short(block_set.block) + # 2 byte block type
-            netencode.encode_short(to_craft) # 2 byte crafting             
+            netencode.encode_short(to_craft) + # 2 byte crafting      
+            netencode.encode_byte(attack_flag)       
         )
 
         sock.sendall(message)
