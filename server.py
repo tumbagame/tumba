@@ -48,7 +48,7 @@ class Server:
         out_dict["by"] = netencode.decode_int(decoder.pop_data(4))
         out_dict["block"] = netencode.decode_short(decoder.pop_data(2))
         out_dict["craft"] = netencode.decode_short(decoder.pop_data(2))
-        out_dict["attack"] = bool(netencode.decode_byte(decoder.pop_data(1)))
+        out_dict["attack"] = netencode.decode_byte(decoder.pop_data(1))
 
         return out_dict
 
@@ -68,7 +68,14 @@ class Server:
                         closest_player = self.players[player]
                         closest_distance = dst
 
-            
+            for other_ent in self.entities:
+                if other_ent.id != ent.id:
+
+                    if physics.hitbox_collide(ent.position + ent.hitbox_offset, ent.hitbox_size, other_ent.position + other_ent.hitbox_offset, other_ent.hitbox_size):
+                        if ent.gravity and ent.damage_cooldown <= 0:
+                            ent.velocity = (ent.position - other_ent.position).norm() * physics.JUMP_HEIGHT
+                            ent.health -= other_ent.damage
+                            ent.damage_cooldown = 1
 
             if ent.gravity:
                 down_acceleration = physics.GRAVITY
@@ -118,8 +125,8 @@ class Server:
             self.players[player_id].position = Vector(parsed["x"], parsed["y"])
 
         to_attack = parsed["attack"]
-        if to_attack:
-            self.entities.append(entity.ENTITIES[2].clone().with_position(self.players[player_id].position - (entity.ENTITIES[2].hitbox_size * 0.5) + Vector(16,32)))
+        if to_attack != 255:
+            self.entities.append(entity.ENTITIES[2].clone().with_position(self.players[player_id].position - (entity.ENTITIES[2].hitbox_size * 0.5) + Vector(16,32)).with_damage(10))
 
         to_craft = parsed["craft"]
         if to_craft != -1:

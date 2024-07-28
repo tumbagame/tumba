@@ -50,11 +50,11 @@ class Client:
         else:
             to_craft = -1
 
-        if game.attack:
-            attack_flag = 1
-            game.attack = False
+        if game.attack == -1:
+            attack_flag = 255
         else:
-            attack_flag = 0
+            attack_flag = game.attack
+            game.attack = -1
 
         message = (
             netencode.encode_byte(game.player.id) + # 1 byte id

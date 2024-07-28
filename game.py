@@ -37,7 +37,7 @@ class Game:
         self.destroy_timer = 0
         self.to_craft = []
         self.entities = []
-        self.attack = False
+        self.attack = 255
         self.damage_cooldown = 0
 
         self.fps = 1
@@ -92,7 +92,7 @@ class Game:
         if self.mouse_left_trigger.is_triggered(mouse.left):
             pg.event.set_grab(True)
             pg.mouse.set_visible(False)
-            self.attack = True
+            self.attack = self.inventory_index
         #     block = self.world.get_block(self.selection_x, self.selection_y)
         #     if block != -1:
         #         self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
