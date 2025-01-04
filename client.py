@@ -54,6 +54,7 @@ class Client:
             attack_flag = 255
         else:
             attack_flag = game.attack
+            block_set.block = game.inventory_index
             game.attack = -1
 
         message = (

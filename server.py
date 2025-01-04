@@ -142,8 +142,10 @@ class Server:
             self.players[player_id].position = Vector(parsed["x"], parsed["y"])
 
         to_attack = parsed["attack"]
-        if to_attack != 255:
-            self.entities.append(entity.ENTITIES[2].clone().with_position(self.players[player_id].position - (entity.ENTITIES[2].hitbox_size * 0.5) + Vector(16,32)).with_damage(10))
+        if to_attack != 255 and parsed["block"] not in [-1,-2]:
+            if blockprop.BLOCKS[self.players[player_id].inventory.slots[parsed["block"]].item].damage > 1:
+                self.players[player_id].inventory.remove_item(parsed["block"])
+                self.entities.append(entity.ENTITIES[2].clone().with_position(self.players[player_id].position - (entity.ENTITIES[2].hitbox_size * 0.5) + Vector(16,32)).with_damage(10))
 
         to_craft = parsed["craft"]
         if to_craft != -1:
