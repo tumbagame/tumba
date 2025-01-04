@@ -120,7 +120,6 @@ def show_settings(renderer):
     def save_settings():
         settings_json["username"] = username_text.get_string()
         settings_json["port"] = port_text.get_int()
-        print(settings_json)
         with open("assets/settings.json", "w") as fp:
             fp.write(json.dumps(settings_json,indent=4))
 

@@ -7,15 +7,32 @@ import netencode
 import entity
 import physics
 import random
+import json
+
 class Server:
     def __init__(self, port=2828):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.running = True
-        try:
-            self.sock.bind(("0.0.0.0", port))
-        except OSError as e:
-            self.running = False
-            print("Error: Port already in use")
+        trying = True
+        port_offset = 0
+        tries = 0
+        while trying:
+            if tries > 5:
+                self.running = False
+                trying = False
+            try:
+                self.sock.bind(("0.0.0.0", port + port_offset))
+                trying = False
+            except OSError as e:
+                print("Error: Port already in use, changing port")
+                with open("assets/settings.json", "r") as fp:
+                    in_settings = json.loads(fp.read())
+                in_settings["port"]+=1
+                with open("assets/settings.json", "w") as fp:
+                    fp.write(json.dumps(in_settings, indent=4))
+                port_offset += 1
+            
+
         
         self.sock.listen(5)
         self.loops = 0
