@@ -64,6 +64,17 @@ class TextInput(UIComponent):
         new_surf = self.surface.copy()
         new_surf.blit(self.text.render(f"{self.current_string[-10:]}{'|' if self.selected else ''}"), (4, 0))
         return new_surf
+    
+    def get_string(self):
+        return self.current_string
+    
+    def get_int(self):
+        if self.current_string.isdigit():
+            return int(self.current_string)
+        return 0
+    
+    def set_string(self, string):
+        self.current_string = str(string)
 
     def get_pos(self):
         return (self.x, self.y)

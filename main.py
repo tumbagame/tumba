@@ -10,13 +10,13 @@ import pygame as pg
 import ui
 import mouse
 import version
+import json
 
-DEBUG_PORT = 8081
 def run_server(renderer):
-    if version.DEBUG:
-        server = Server(port=DEBUG_PORT)
-    else:
-        server = Server()
+
+    with open("assets/settings.json", "r") as fp:
+        port = json.loads(fp.read())["port"]
+    server = Server(port=int(port))
     print("Server Started")
     if not server.running:
         renderer.running = False
@@ -31,10 +31,9 @@ def run_server(renderer):
 
 def run_client(renderer, game):
     sleep(1)
-    if version.DEBUG:    
-        client = Client(port=DEBUG_PORT)
-    else:
-        client = Client()
+    with open("assets/settings.json", "r") as fp:
+        port = json.loads(fp.read())["port"]
+    client = Client(port=port)
     print("Client Connected")
     while renderer.running:
         client.update(game)
@@ -110,25 +109,43 @@ def create_inventory_gui(game, renderer):
 
 
 def show_settings(renderer):
+    username_text = ui.TextInput(120, 80)
+    port_text = ui.TextInput(120, 120)
+    with open("assets/settings.json", "r") as fp:
+        settings_json = json.loads(fp.read())
+
+    username_text.set_string(settings_json["username"])
+    port_text.set_string(settings_json["port"])
+
+    def save_settings():
+        settings_json["username"] = username_text.get_string()
+        settings_json["port"] = port_text.get_int()
+        print(settings_json)
+        with open("assets/settings.json", "w") as fp:
+            fp.write(json.dumps(settings_json,indent=4))
+
     renderer.show_gui(
         ui.GUI(
             ui.Image("assets/sprites/ui/inventorybg.png", 30, 30),
             ui.Label("Settings", 40, 40),
             ui.Label("Username", 40, 80),
-            ui.TextInput(120, 80),
+            username_text,
             ui.Label("Mouse Sensitivity", 40, 100),
             ui.Button("-", 120, 100),
             ui.Button("+", 130, 100),
             ui.Label("10", 145, 100),
             ui.Label("Server Port", 40, 120),
-            ui.TextInput(120, 120),
+            port_text,
+            ui.Button("Save", 40, 140, command=save_settings)
         ).can_escape()
     )
 
 
 def main():
     pg.init()
-    game = Game("player")
+    with open("assets/settings.json", "r") as fp:
+        username = json.loads(fp.read())["username"]
+    game = Game(username)
     renderer = Renderer()
 
     title_gui = ui.GUI(

@@ -5,7 +5,7 @@ import entity
 from vector import Vector
 
 class Client:
-    def __init__(self, ip="127.0.0.1", port=2828):
+    def __init__(self, ip="0.0.0.0", port=2828):
         self.ip = ip
         self.port = port
 
