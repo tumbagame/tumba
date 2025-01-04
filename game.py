@@ -93,6 +93,9 @@ class Game:
             pg.event.set_grab(True)
             pg.mouse.set_visible(False)
             self.attack = self.inventory_index
+            if blockprop.BLOCKS[self.player.inventory.slots[self.inventory_index].item].damage > 1:
+                self.player.animation.set_animation(2)
+            self.player.animation.frame = 0
         #     block = self.world.get_block(self.selection_x, self.selection_y)
         #     if block != -1:
         #         self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
@@ -152,14 +155,20 @@ class Game:
         acc = Vector()
         if pg.K_a in keys or pg.K_LEFT in keys:
             acc.x = -physics.MOVE_ACCELERATION
-            self.player.animation.set_animation(1)
+            if self.player.animation.index != 2:
+                self.player.animation.set_animation(1)
             self.player.animation.mirror = True
         elif pg.K_d in keys or pg.K_RIGHT in keys:
             acc.x = physics.MOVE_ACCELERATION
-            self.player.animation.set_animation(1)
+            if self.player.animation.index != 2:
+                self.player.animation.set_animation(1)
             self.player.animation.mirror = False
 
-        if abs(self.player.velocity.x) < 0.001 and self.player.standing:
+        if self.player.animation.index == 2:
+            if self.player.animation.frame >= self.player.animation.num_frames-2:
+                self.player.animation.set_animation(0)
+
+        if abs(self.player.velocity.x) < 0.001 and self.player.standing and self.player.animation.index != 2:
             self.player.animation.set_animation(0)
 
         if pg.K_f in keys:
