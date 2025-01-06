@@ -2,6 +2,7 @@ import pygame as pg
 import sprites
 import text
 import kbtyping
+import crafting
 
 def scale_button(image, size):
     new_surface = pg.Surface(size)
@@ -94,7 +95,7 @@ class Image(UIComponent):
 
 
 class ItemSlot(UIComponent):
-    def __init__(self, x, y, block_getter, command=lambda: None):
+    def __init__(self, x, y, block_getter, command=lambda: None, on_hover=lambda _: None):
         self.image = sprites.ITEM_SLOT
         self.block_getter = block_getter
         self.command = command
@@ -102,6 +103,7 @@ class ItemSlot(UIComponent):
         self.y = y
         self.text = text.Text()
         self.is_pressed = False
+        self.on_hover = on_hover
 
     def update(self, mouse, keyboard):
         block = self.block_getter()
@@ -120,6 +122,9 @@ class ItemSlot(UIComponent):
                 clone.blit(sprites.BLOCKS[block.item], (0, 0))
                 clone.blit(sprites.ITEM_SLOT_SELECT, (0, 0))
                 clone.blit(count_text, (4, 0))
+                result_recipie = crafting.find_recipie(block.item, crafting.RECIPIES)
+                if result_recipie is not None:
+                    self.on_hover(result_recipie.description)
                 if mouse.left:
                     self.command()
                     mouse.left = False
@@ -140,6 +145,9 @@ class Label(UIComponent):
 
     def update(self, mouse, keyboard):
         return self.text_image
+
+    def set_label(self, label):
+        self.text_image = text.Text().render(label)
 
     def get_pos(self):
         return (self.x, self.y)

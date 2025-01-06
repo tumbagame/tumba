@@ -65,6 +65,8 @@ def quit_game(renderer):
 
 
 def create_crafting_gui(game, renderer):
+    description = ui.Label("", 60, 120)
+
     slots = []
     for i in range(16):
         slots.append(
@@ -73,12 +75,14 @@ def create_crafting_gui(game, renderer):
                 40 + (i // 8) * 34,
                 game.player.inventory.recipie_getter(i),
                 game.crafting_setter(i),
+                description.set_label
             )
         )
     return ui.GUI(
         ui.Image("assets/sprites/ui/inventorybg.png", 30, 30),
         ui.Label("Crafting", 40, 40),
         ui.Button("Done", 40, 80, lambda: resume_game(renderer)),
+        description,
         *slots,
     ).can_escape()
 
