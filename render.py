@@ -52,6 +52,8 @@ class Renderer:
     def clear_gui(self):
         self.gui = ui.GUI()
         self.in_gui = False
+        pg.event.set_grab(True)
+        pg.mouse.set_visible(False)
 
     def quit_game(self):
         pg.quit()
