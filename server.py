@@ -122,6 +122,8 @@ class Server:
             ent.lifetime -= deltatime
             if ent.lifetime > 0 and ent.health > 0:
                 next_entities.append(ent)
+            elif ent.drop != -1:
+                closest_player.inventory.add_item(ent.drop)
 
             if ent.damage_cooldown >= 0:
                 ent.damage_cooldown -= deltatime
