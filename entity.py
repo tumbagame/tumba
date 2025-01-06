@@ -36,7 +36,7 @@ class Entity:
         return self
 
     def serialize(self):
-        return netencode.encode_byte(self.id) + netencode.encode_byte(self.entity_type) + \
+        return netencode.encode_byte(self.id) + netencode.encode_byte(self.entity_type | (0b10000000 if self.damage_cooldown > 0.1 else 0)) + \
                 netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)
 
     def with_position(self, position):

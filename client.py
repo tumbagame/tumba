@@ -81,7 +81,9 @@ class Client:
         new_entities = []
         for i in range(8):
             entity_id = netencode.decode_byte(entity_decoder.pop_data(1))
-            entity_type = netencode.decode_byte(entity_decoder.pop_data(1))
+            entity_type_raw = netencode.decode_byte(entity_decoder.pop_data(1))
+            entity_type = entity_type_raw & 0b01111111
+            entity_damaged = bool(entity_type_raw & 0b10000000)
             entity_x = netencode.decode_int(entity_decoder.pop_data(4))
             entity_y = netencode.decode_int(entity_decoder.pop_data(4))
             target = Vector(entity_x, entity_y)
@@ -93,6 +95,7 @@ class Client:
                     break
             new_ent = entity.ENTITIES[entity_type].clone().with_id(entity_id).with_position(target)
             new_ent.animation.mirror = direction
+            new_ent.damage_cooldown = 1.0 if entity_damaged else 0.0
             new_entities.append(new_ent)
 
         game.entities = new_entities

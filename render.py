@@ -136,10 +136,15 @@ class Renderer:
         )
 
         for e in game.entities:
-            self.disp.blit(e.animation.get_frame(deltatime),
-            self._game_to_screen(e.position, game.camera)
-        )
-
+            ent_frame = e.animation.get_frame(deltatime)
+            if e.damage_cooldown > 0.5:
+                dmg_indic = pg.Surface(ent_frame.get_size(), pg.SRCALPHA)
+                dmg_indic.fill((255,100,100,255))
+                ent_frame.blit(dmg_indic,(0,0), special_flags=pg.BLEND_RGBA_MULT)
+            self.disp.blit(ent_frame,
+                self._game_to_screen(e.position, game.camera)
+            )
+            
 
         player_frame = game.player.animation.get_frame(deltatime)
         damage_indicator = pg.Surface(player_frame.get_size(), pg.SRCALPHA)
