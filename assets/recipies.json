@@ -77,6 +77,108 @@
                     "count": 5
                 }
             ]
+        },
+        {
+            "description": "Purplegem Pickaxe: 5 Bone, 5 Purplegem",
+            "result": 51,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 61,
+                    "count": 5
+                },
+                {
+                    "item": 31,
+                    "count": 5
+                }
+            ]
+        },
+        {
+            "description": "Cloudgem Pickaxe: 5 Bone, 5 Cloudgem",
+            "result": 52,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 61,
+                    "count": 5
+                },
+                {
+                    "item": 39,
+                    "count": 5
+                }
+            ]
+        },
+
+        {
+            "description": "Wood Sword: 10 Wood",
+            "result": 56,
+            "amount": 25,
+            "recipie": [
+                {
+                    "item": 7,
+                    "count": 10
+                }
+            ]
+        },
+        {
+            "description": "Stone Sword: 5 Wood, 5 Stone",
+            "result": 57,
+            "amount": 50,
+            "recipie": [
+                {
+                    "item": 12,
+                    "count": 5
+                },
+                {
+                    "item": 7,
+                    "count": 5
+                }
+            ]
+        },
+        {
+            "description": "Diamond Sword: 5 Wood, 5 Diamond",
+            "result": 58,
+            "amount": 100,
+            "recipie": [
+                {
+                    "item": 23,
+                    "count": 5
+                },
+                {
+                    "item": 7,
+                    "count": 5
+                }
+            ]
+        },
+        {
+            "description": "Purplegem Sword: 5 Bone, 5 Purplegem",
+            "result": 59,
+            "amount": 150,
+            "recipie": [
+                {
+                    "item": 61,
+                    "count": 5
+                },
+                {
+                    "item": 31,
+                    "count": 5
+                }
+            ]
+        },
+        {
+            "description": "Cloudgem Sword: 5 Bone, 5 Cloudgem",
+            "result": 60,
+            "amount": 200,
+            "recipie": [
+                {
+                    "item": 61,
+                    "count": 5
+                },
+                {
+                    "item": 39,
+                    "count": 5
+                }
+            ]
         }
 
     ]
