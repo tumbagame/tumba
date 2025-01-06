@@ -38,10 +38,9 @@ class Server:
         self.loops = 0
         self.players = {}
         self.entities = []
+        self.spawn_timer = 0
 
 
-        for _ in range(1):
-            self.entities.append(entity.ENTITIES[1].clone().with_position(Vector(random.randint(-320, 320),-5*32)))
 
         self.world = World(True)
 
@@ -69,9 +68,7 @@ class Server:
 
         return out_dict
 
-    # 2048 block size
-    # 1024 byte chunk, 48 byte inventory
-    def update(self, deltatime):
+    def _update_entities(self, deltatime):
         next_entities = []
         for ent in self.entities:
             closest_player = Player(0, "", Vector(0,0))
@@ -89,20 +86,27 @@ class Server:
                 if other_ent.id != ent.id:
 
                     if physics.hitbox_collide(ent.position + ent.hitbox_offset, ent.hitbox_size, other_ent.position + other_ent.hitbox_offset, other_ent.hitbox_size):
-                        if ent.gravity and ent.damage_cooldown <= 0:
+                        if ent.gravity and ent.damage_cooldown <= 0 and not other_ent.is_hostile and not other_ent.is_scared:
                             ent.velocity = (ent.position - other_ent.position).norm() * physics.JUMP_HEIGHT
                             ent.health -= other_ent.damage
                             ent.damage_cooldown = 1
 
+            x_acceleration = 0
             if ent.gravity:
                 down_acceleration = physics.GRAVITY
             else:
                 down_acceleration = 0
-            if ent.is_hostile:
+            if ent.is_hostile and ent.damage_cooldown < 0.1:
                 if closest_distance < 8*32:
-                    ent.velocity.x = physics.ENTITY_SPEED * (1 if (closest_player.position.x > ent.position.x) else -1)
-            
-            vel = ent.velocity * deltatime + Vector(0, down_acceleration) * 0.5 * deltatime * deltatime
+                    x_acceleration = physics.ENTITY_ACCELERATION  * (1 if (closest_player.position.x > ent.position.x) else -1)
+            if ent.is_scared and ent.damage_cooldown < 0.1:
+                if closest_distance < 8*32:
+                    x_acceleration = physics.ENTITY_ACCELERATION  * (-1 if (closest_player.position.x > ent.position.x) else 1)
+
+            if abs(ent.velocity.x) > physics.ENTITY_SPEED and ent.damage_cooldown < 0.1:
+                ent.velocity.x = (ent.velocity.x / abs(ent.velocity.x)) * physics.ENTITY_SPEED
+                
+            vel = ent.velocity * deltatime + Vector(x_acceleration, down_acceleration) * 0.5 * deltatime * deltatime
             frame = ent.animation.get_frame(0.1)
             ent.position.y += vel.y
             standing = False
@@ -114,10 +118,10 @@ class Server:
             if self.world.collide(ent.position + ent.hitbox_offset, ent.hitbox_size):
                 ent.position.x -= vel.x
                 ent.velocity.x = 0
-                if ent.is_hostile and ent.gravity and standing:
+                if (ent.is_hostile or ent.is_scared) and ent.gravity and standing:
                     ent.velocity.y = -physics.JUMP_HEIGHT
 
-            ent.velocity += Vector(0, down_acceleration) * deltatime
+            ent.velocity += Vector(x_acceleration, down_acceleration) * deltatime
 
             ent.lifetime -= deltatime
             if ent.lifetime > 0 and ent.health > 0:
@@ -130,7 +134,30 @@ class Server:
 
         self.entities = next_entities
 
+    # 2048 block size
+    # 1024 byte chunk, 48 byte inventory
+    def update(self, deltatime):
+        
 
+        self._update_entities(deltatime)
+
+        self.spawn_timer += deltatime
+        if self.spawn_timer > 30:
+
+            for p in self.players:
+                play = self.players[p]
+                for ent in entity.ENTITIES:
+                    can_spawn = int(self.players[p].position.y/32) in range(ent.spawn_min, ent.spawn_max)
+                    if can_spawn and (random.randint(0,1000) * 0.001 < ent.spawn_rate):
+                        new_ent = ent.clone()
+                        for i in range(10):
+                            random_pos = (Vector(random.randint(0,1000), random.randint(0,1000)) * 0.002 - Vector(1,1)).norm() * 128
+                            new_ent.with_position(play.position + random_pos)
+                            if not self.world.collide(new_ent.position + new_ent.hitbox_offset, new_ent.hitbox_size):
+                                self.entities.append(new_ent)
+                                break
+                            
+            self.spawn_timer = 0
 
         conn, addr = self.sock.accept()
         data = conn.recv(2048)

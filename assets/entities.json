@@ -13,7 +13,10 @@
             "gravity": false,
             "lifetime": 86400,
             "hitboxSize": [1,1],
-            "hitboxOffset": [0,0]
+            "hitboxOffset": [0,0],
+            "spawnRate": 0.0,
+            "spawnMin": 0,
+            "spawnMax": 0
         },
         {
             "name": "Skeleton",
@@ -28,7 +31,10 @@
             "gravity": true,
             "lifetime": 86400,
             "hitboxSize": [9,60],
-            "hitboxOffset": [11,3]
+            "hitboxOffset": [11,3],
+            "spawnRate": 1.0,
+            "spawnMin": 32,
+            "spawnMax": 99999999
         },
         {
             "name": "Attack",
@@ -43,7 +49,28 @@
             "gravity": false,
             "lifetime": 0.5,
             "hitboxSize": [64,64],
-            "hitboxOffset": [0,0]
+            "hitboxOffset": [0,0],
+            "spawnRate": 0.0,
+            "spawnMin": 0,
+            "spawnMax": 0
+        },
+        {
+            "name": "Pig",
+            "animation": "assets/sprites/pig.png",
+            "frames": 16,
+            "fps": 15,
+            "health": 60,
+            "damage": 0,
+            "drop": 8,
+            "hostile": false,
+            "scared": true,
+            "gravity": true,
+            "lifetime": 86400,
+            "hitboxSize": [20,24],
+            "hitboxOffset": [2,37],
+            "spawnRate": 0.5,
+            "spawnMin": -20,
+            "spawnMax": 20
         }
     ]
 }

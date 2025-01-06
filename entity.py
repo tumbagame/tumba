@@ -21,6 +21,9 @@ class Entity:
         self.hitbox_size = Vector(1,1)
         self.hitbox_offset = Vector(0,0)
         self.damage_cooldown = 0
+        self.spawn_rate = 0
+        self.spawn_min = -99999999
+        self.spawn_max = 99999999
 
     def with_hitbox(self, size, offset):
         self.hitbox_size = size
@@ -29,6 +32,12 @@ class Entity:
 
     def with_id(self, id):
         self.id = id
+        return self
+
+    def with_spawn(self, spawn_rate, spawn_min, spawn_max):
+        self.spawn_rate = spawn_rate
+        self.spawn_min = spawn_min
+        self.spawn_max = spawn_max
         return self
 
     def with_type(self, entity_type):
@@ -92,7 +101,8 @@ class Entity:
             ).with_gravity(self.gravity
             ).with_lifetime(self.lifetime
             ).with_type(self.entity_type
-            ).with_hitbox(self.hitbox_size,self.hitbox_offset)
+            ).with_hitbox(self.hitbox_size,self.hitbox_offset
+            ).with_spawn(self.spawn_rate, self.spawn_min, self.spawn_max)
 
 def load_dict(entity_dict, index):
     hitbox_size = entity_dict["hitboxSize"]
@@ -106,7 +116,8 @@ def load_dict(entity_dict, index):
         ).with_lifetime(entity_dict["lifetime"]
         ).with_gravity(entity_dict["gravity"]
         ).with_type(index
-        ).with_hitbox(Vector(*hitbox_size), Vector(*hitbox_offset))
+        ).with_hitbox(Vector(*hitbox_size), Vector(*hitbox_offset)
+        ).with_spawn(entity_dict["spawnRate"], entity_dict["spawnMin"], entity_dict["spawnMax"])
 
 
 ENTITIES = []
