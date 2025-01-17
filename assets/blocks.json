@@ -638,7 +638,7 @@
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
-      "collision": true
+      "collision": false
     },
     {
       "name": "Dirt",
@@ -702,7 +702,7 @@
       "breakWith": 1,
       "mineStrength": 0,
       "damage": 1,
-      "collision": true
+      "collision": false
     },
     {
       "name": "",
