@@ -53,6 +53,14 @@ while True:
                 current_block -= 1
                 pg.display.set_caption(
                     f'Edit - {current_block} - {out_blocks[current_block]["name"]}')
+            elif e.key == pg.K_s:
+                prompt = easygui.enterbox(msg="Search")
+                if prompt is not None:
+                    for index, blk in enumerate(out_blocks):
+                        if blk["name"].lower() == prompt.lower():
+                            current_block = index
+                            pg.display.set_caption(
+                                f'Edit - {current_block} - {out_blocks[current_block]["name"]}')
             elif e.key == pg.K_SPACE:
                 '''
                     'name': '',
