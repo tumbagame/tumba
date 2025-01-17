@@ -566,15 +566,15 @@
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
-      "collision": true
+      "collision": false
     },
     {
-      "name": "",
-      "drops": -1,
+      "name": "Window",
+      "drops": 71,
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
-      "collision": true
+      "collision": false
     },
     {
       "name": "Snowman",

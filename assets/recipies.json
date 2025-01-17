@@ -227,7 +227,24 @@
                     "count": 4
                 }
             ]
+        },
+        {
+            "description": "Window: 1 Wall, 4 Dirt",
+            "result": 71,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 47,
+                    "count": 1
+                },
+                {
+                    "item": 9,
+                    "count": 4
+                }
+
+            ]
         }
+        
         
 
     ]
