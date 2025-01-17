@@ -94,7 +94,7 @@ class Client:
                     target = ent.position + (Vector(entity_x,entity_y) - ent.position) * 0.2
                     break
             new_ent = entity.ENTITIES[entity_type].clone().with_id(entity_id).with_position(target)
-            new_ent.animation.mirror = direction
+            new_ent.mirror = direction
             new_ent.damage_cooldown = 1.0 if entity_damaged else 0.0
             new_entities.append(new_ent)
 

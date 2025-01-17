@@ -138,6 +138,7 @@ class Renderer:
         )
 
         for e in game.entities:
+            e.animation.mirror = e.mirror
             ent_frame = e.animation.get_frame(deltatime)
             if e.damage_cooldown > 0.5:
                 dmg_indic = pg.Surface(ent_frame.get_size(), pg.SRCALPHA)

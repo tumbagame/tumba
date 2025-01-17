@@ -24,6 +24,7 @@ class Entity:
         self.spawn_rate = 0
         self.spawn_min = -99999999
         self.spawn_max = 99999999
+        self.mirror = False
 
     def with_hitbox(self, size, offset):
         self.hitbox_size = size
