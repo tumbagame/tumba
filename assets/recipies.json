@@ -23,7 +23,7 @@
             ]
         },
         {
-            "description": "Furnace: 5 Wood, 5 Stone",
+            "description": "Furnace: 5 Wood, 5 Stone, 5 Coal",
             "result": 46,
             "amount": 1,
             "recipie": [
@@ -33,6 +33,10 @@
                 },
                 {
                     "item": 7,
+                    "count": 5
+                },
+                {
+                    "item": 70,
                     "count": 5
                 }
             ]
@@ -179,7 +183,52 @@
                     "count": 5
                 }
             ]
+        },
+        {
+            "description": "Mud Bricks: 4 Dirt",
+            "result": 78,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 9,
+                    "count": 4
+                }
+            ]
+        },
+        {
+            "description": "Stone Bricks: 4 Stone",
+            "result": 86,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 12,
+                    "count": 4
+                }
+            ]
+        },
+        {
+            "description": "Wood Pillar: 4 Wood",
+            "result": 79,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 7,
+                    "count": 4
+                }
+            ]
+        },
+        {
+            "description": "Stone Pillar: 4 Stone",
+            "result": 87,
+            "amount": 1,
+            "recipie": [
+                {
+                    "item": 12,
+                    "count": 4
+                }
+            ]
         }
+        
 
     ]
 }
