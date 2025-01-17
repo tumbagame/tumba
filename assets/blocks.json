@@ -497,9 +497,9 @@
       "collision": false
     },
     {
-      "name": "",
-      "drops": -1,
-      "breakWith": 0,
+      "name": "Coal Ore",
+      "drops": 70,
+      "breakWith": 1,
       "mineStrength": 0,
       "damage": 1,
       "collision": true
@@ -561,8 +561,8 @@
       "collision": true
     },
     {
-      "name": "",
-      "drops": -1,
+      "name": "Coal",
+      "drops": 70,
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
@@ -625,24 +625,16 @@
       "collision": false
     },
     {
-      "name": "",
-      "drops": -1,
-      "breakWith": 0,
+      "name": "Mud Bricks",
+      "drops": 78,
+      "breakWith": 1,
       "mineStrength": 0,
       "damage": 1,
       "collision": true
     },
     {
-      "name": "",
-      "drops": -1,
-      "breakWith": 0,
-      "mineStrength": 0,
-      "damage": 1,
-      "collision": true
-    },
-    {
-      "name": "Dirt",
-      "drops": 9,
+      "name": "Wood Pillar",
+      "drops": 79,
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
@@ -689,17 +681,25 @@
       "collision": true
     },
     {
-      "name": "",
-      "drops": -1,
+      "name": "Dirt",
+      "drops": 9,
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
       "collision": true
     },
     {
-      "name": "",
-      "drops": -1,
-      "breakWith": 0,
+      "name": "Stone Bricks",
+      "drops": 86,
+      "breakWith": 1,
+      "mineStrength": 0,
+      "damage": 1,
+      "collision": true
+    },
+    {
+      "name": "Stone Pillar",
+      "drops": 87,
+      "breakWith": 1,
       "mineStrength": 0,
       "damage": 1,
       "collision": true
