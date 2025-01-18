@@ -134,6 +134,22 @@ class Server:
 
         self.entities = next_entities
 
+        def get_entity_distance(ent):
+            if self.players:
+                closest_player = self.players[list(self.players)[-1]]
+                closest_distance = (closest_player.position - ent.position).length()
+                for player in self.players:
+                    dst = (self.players[player].position - ent.position).length() 
+                    if dst < closest_distance:
+                        closest_player = self.players[player]
+                        closest_distance = dst
+                return closest_distance
+            return 0
+        
+        if len(self.entities) > 8:
+            ent_sorted = sorted(self.entities, key = get_entity_distance)
+            self.entities = ent_sorted[:8]
+
     # 2048 block size
     # 1024 byte chunk, 48 byte inventory
     def update(self, deltatime):
@@ -143,7 +159,6 @@ class Server:
 
         self.spawn_timer += deltatime
         if self.spawn_timer > 30:
-
             for p in self.players:
                 play = self.players[p]
                 for ent in entity.ENTITIES:
