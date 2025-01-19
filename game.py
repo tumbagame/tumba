@@ -39,6 +39,7 @@ class Game:
         self.entities = []
         self.attack = 255
         self.damage_cooldown = 0
+        self.last_chosen_slot = 0
 
         self.fps = 1
         self.fps_filter = Filter(0.1, 1)
@@ -48,6 +49,7 @@ class Game:
     def inventory_index_setter(self, index):
         def setter():
             self.inventory_index = index
+            self.last_chosen_slot = index
 
         return setter
 
@@ -179,6 +181,22 @@ class Game:
         if pg.K_f in keys:
             sleep(0.05)
 
+        if pg.K_2 in keys:
+            greatest_damage = 1
+            for index, item in enumerate(self.player.inventory.slots):
+                if blockprop.BLOCKS[item.item].damage > greatest_damage:
+                    greatest_damage = blockprop.BLOCKS[item.item].damage
+                    self.inventory_index = index
+            
+        if pg.K_3 in keys:
+            greatest_damage = 1
+            for index, item in enumerate(self.player.inventory.slots):
+                if blockprop.BLOCKS[item.item].mine_strength > greatest_damage:
+                    greatest_damage = blockprop.BLOCKS[item.item].mine_strength
+                    self.inventory_index = index
+
+        if pg.K_1 in keys:
+            self.inventory_index = self.last_chosen_slot
         acc.y = physics.GRAVITY
 
         vel = self.player.velocity * deltatime + (acc * 0.5 * deltatime * deltatime)
