@@ -33,12 +33,15 @@ class MusicQueue:
 
 
 
-mq = MusicQueue()
-mq.ground[0].play()
-
 JUMP = pg.mixer.Sound("assets/sounds/effects/jump.ogg")
 EAT = pg.mixer.Sound("assets/sounds/effects/eat.ogg")
 BREAK = pg.mixer.Sound("assets/sounds/effects/break.ogg")
+HIT = pg.mixer.Sound("assets/sounds/effects/hit.ogg")
+SWING = pg.mixer.Sound("assets/sounds/effects/swing.ogg")
+DAMAGE = pg.mixer.Sound("assets/sounds/effects/damage.ogg")
 
 JUMP.set_volume(0.05)
 BREAK.set_volume(0.1)
+SWING.set_volume(0.1)
+HIT.set_volume(0.1)
+DAMAGE.set_volume(0.1)

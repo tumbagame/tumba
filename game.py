@@ -95,6 +95,7 @@ class Game:
             self.attack = self.inventory_index
             if blockprop.BLOCKS[self.player.inventory.slots[self.inventory_index].item].damage > 1:
                 self.player.animation.set_animation(2)
+                sound.SWING.play()
             self.player.animation.frame = 0
         #     block = self.world.get_block(self.selection_x, self.selection_y)
         #     if block != -1:
@@ -131,6 +132,7 @@ class Game:
                     self.player.health -= ent.damage
                     self.damage_cooldown = 0.5
                     self.player.velocity = ((self.player.position - ent.position).norm() * physics.JUMP_HEIGHT)
+                    sound.DAMAGE.play()
 
         if self.damage_cooldown > 0:
             self.damage_cooldown -= deltatime
