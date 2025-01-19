@@ -114,7 +114,7 @@
     },
     {
       "name": "Purplegem Ore",
-      "drops": -1,
+      "drops": 31,
       "breakWith": 3,
       "mineStrength": 0,
       "damage": 1,
@@ -122,7 +122,7 @@
     },
     {
       "name": "Cloudgem Ore",
-      "drops": -1,
+      "drops": 39,
       "breakWith": 4,
       "mineStrength": 0,
       "damage": 1,
