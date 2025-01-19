@@ -97,12 +97,12 @@ class Game:
                 min_x = min(min_x, chunk[0])
                 min_y = min(min_y, chunk[1])
 
-            out_surf = pg.Surface(((max_x - min_x) * 32, (max_y - min_y) * 32), pg.SRCALPHA)
+            out_surf = pg.Surface(((max_x - min_x) * 32 * 4, (max_y - min_y) * 32 * 4), pg.SRCALPHA)
             out_surf.fill((0,0,0,0))
             for chunk in self.world.chunks:
                 chnk = self.world.chunks[chunk]
-                chunk_surf = pg.transform.smoothscale(chnk.get_surface_no_load(), (32,32))
-                out_surf.blit(chunk_surf, ( (chunk[0] - min_x)*32, (chunk[1] - min_y)*32 ))
+                chunk_surf = pg.transform.smoothscale(chnk.get_surface_no_load(), (32 * 4,32 * 4))
+                out_surf.blit(chunk_surf, ( (chunk[0] - min_x)*32 * 4, (chunk[1] - min_y)*32 * 4 ))
 
             pg.image.save(out_surf, "world.png")
 
