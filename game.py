@@ -41,6 +41,8 @@ class Game:
         self.damage_cooldown = 0
         self.last_chosen_slot = 0
 
+        self.sstrigger = BoolTrigger()
+
         self.fps = 1
         self.fps_filter = Filter(0.1, 1)
         self.can_air_jump = False
@@ -83,6 +85,26 @@ class Game:
         self.selection_y = int(
             (self.player.position.y + self.selection_position.y * 32 + 16) / 32
         )
+
+        if self.sstrigger.is_triggered(pg.K_p in keys):
+            min_x = 0
+            max_x = 0
+            min_y = 0
+            max_y = 0
+            for chunk in self.world.chunks:
+                max_x = max(max_x, chunk[0])
+                max_y = max(max_y, chunk[1])
+                min_x = min(min_x, chunk[0])
+                min_y = min(min_y, chunk[1])
+
+            out_surf = pg.Surface(((max_x - min_x) * 32, (max_y - min_y) * 32), pg.SRCALPHA)
+            out_surf.fill((0,0,0,0))
+            for chunk in self.world.chunks:
+                chnk = self.world.chunks[chunk]
+                chunk_surf = pg.transform.smoothscale(chnk.get_surface_no_load(), (32,32))
+                out_surf.blit(chunk_surf, ( (chunk[0] - min_x)*32, (chunk[1] - min_y)*32 ))
+
+            pg.image.save(out_surf, "world.png")
 
         self.selection_position += mouse.velocity * 0.01
 
@@ -194,6 +216,8 @@ class Game:
                 if blockprop.BLOCKS[item.item].mine_strength > greatest_damage:
                     greatest_damage = blockprop.BLOCKS[item.item].mine_strength
                     self.inventory_index = index
+
+        
 
         if pg.K_1 in keys:
             self.inventory_index = self.last_chosen_slot

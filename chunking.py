@@ -32,7 +32,7 @@ class Chunk:
             self.blocks[ind] = -1 if (byte == 255) else byte
 
     def load_surface(self):
-        new_surf = self.surface.copy()
+        # new_surf = self.surface.copy()
         new_surf = pg.Surface((32 * 32, 32 * 32), pg.SRCALPHA)
         new_surf.fill((0,) * 4)
         col_surf = new_surf.copy()
@@ -48,6 +48,17 @@ class Chunk:
         self.surface = new_surf
         self.surface_loaded = True
 
+    def get_surface_no_load(self):
+        new_surf = pg.Surface((32 * 32, 32 * 32), pg.SRCALPHA)
+        new_surf.fill((0,) * 4)
+        col_surf = new_surf.copy()
+        for y in range(32):
+            for x in range(32):
+                block = self.get_block(x, y)
+                if block != -1:
+                    new_surf.blit(sprites.BLOCKS[block], (x * 32, y * 32))
+        return new_surf
+        
     def unload_surface(self):
         self.surface = pg.Surface((1, 1), pg.SRCALPHA)
         self.collision = pg.mask.Mask((32 * 32, 32 * 32))
