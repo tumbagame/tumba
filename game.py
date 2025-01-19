@@ -47,6 +47,7 @@ class Game:
         self.fps_filter = Filter(0.1, 1)
         self.can_air_jump = False
         self.cloud_pos = 0
+        self.music = sound.MusicQueue()
 
     def inventory_index_setter(self, index):
         def setter():
@@ -68,6 +69,8 @@ class Game:
         self.to_craft.append(index)
 
     def update(self, keys, mouse, deltatime):
+        self.music.update(deltatime, self.player.position.y)
+        
         if not self.running:
             return
         if deltatime > 0.5:

@@ -1,7 +1,8 @@
 import pygame as pg
 import json
 import random
-pg.mixer.init()
+pg.mixer.pre_init(buffer=1024)
+pg.mixer.init(buffer=1024)
 
 class MusicQueue:
     def __init__(self):
@@ -30,6 +31,22 @@ class MusicQueue:
         random.shuffle(self.sky)
         random.shuffle(self.ground)
         random.shuffle(self.cave)
+
+        self.timer = 4 * 60
+
+    def update(self, deltatime, player_y):
+        if self.timer > 4 * 60:
+            self.timer = 0
+            if player_y < -32 * 32:
+                region = self.sky
+            elif player_y > 8 * 32:
+                region = self.cave
+            else:
+                region = self.ground 
+            region[0].play()
+            region.append(region.pop(0))
+        
+        self.timer += deltatime
 
 
 
