@@ -9,7 +9,7 @@ from time import sleep
 from control import BoolTrigger
 import blockprop
 import version
-
+import sound
 
 class Game:
     def __init__(self, username):
@@ -108,6 +108,7 @@ class Game:
                 if self.destroy_timer >= 1:
                     self.world.set_block(self.selection_x, self.selection_y, -1)
                     self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
+                    sound.BREAK.play()
             else:
                 self.destroy_timer = 0
         else:
@@ -141,6 +142,8 @@ class Game:
             self.to_set.append(
                 BlockSet(self.selection_x, self.selection_y, self.inventory_index)
             )
+            sound.BREAK.play()
+
         if pg.K_ESCAPE in keys:
             pg.event.set_grab(False)
             pg.mouse.set_visible(True)
@@ -194,6 +197,7 @@ class Game:
         )
         if self.can_air_jump and jump_triggered:
             self.player.velocity.y = -physics.JUMP_HEIGHT
+            sound.JUMP.play()
             self.can_air_jump = version.DEBUG
 
         if self.world.collide(
@@ -209,6 +213,7 @@ class Game:
             self.can_air_jump = True
         if self.player.standing and jump_triggered:
             self.player.velocity.y = -physics.JUMP_HEIGHT
+            sound.JUMP.play()
 
         self.player.velocity += acc * deltatime
         # if abs(self.player.velocity.x) > physics.MAX_SPEED:

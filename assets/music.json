@@ -1,0 +1,32 @@
+{
+    "overworld": [
+        {
+            "file": "assets/sounds/music/overworld1.ogg",
+            "gain": 0.5
+        },
+        {
+            "file": "assets/sounds/music/overworld2.ogg",
+            "gain": 0.5
+        },
+        {
+            "file": "assets/sounds/music/overworld3.ogg",
+            "gain": 0.5
+        }
+    ],      
+    "sky": [
+        {
+            "file": "assets/sounds/music/sky1.ogg",
+            "gain": 0.5
+        }
+    ],
+    "cave": [
+        {
+            "file": "assets/sounds/music/cave1.ogg",
+            "gain": 0.5
+        },
+        {
+            "file": "assets/sounds/music/cave2.ogg",
+            "gain": 0.5
+        }
+    ]
+}
