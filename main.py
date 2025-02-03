@@ -41,6 +41,15 @@ def run_client(renderer, game):
     client.update(game)
     print("Client Disconnected")
 
+def run_mp_client(renderer, game, ip, port):
+    sleep(1)
+    client = Client(ip=ip, port=port)
+    print("Client Connected")
+    while renderer.running:
+        client.update(game)
+    sleep(1)
+    client.update(game)
+    print("Client Disconnected")
 
 def start_server(renderer, game):
 
@@ -53,14 +62,19 @@ def start_server(renderer, game):
 
     game.start()
 
+def join_client(renderer, game, ip_getter, port_getter):
+    client_thread = threading.Thread(target=run_mp_client, args=[renderer, game, ip_getter(), port_getter()])
+    client_thread.start()
+    renderer.clear_gui()
+    game.start()
 
 def resume_game(renderer):
     renderer.clear_gui()
 
 
 def quit_game(renderer):
-    renderer.quit_game()
     renderer.clear_gui()
+    renderer.quit_game()
     sys.exit(0)
 
 
@@ -112,6 +126,24 @@ def create_inventory_gui(game, renderer):
     ).can_escape()
 
 
+def show_join(renderer, game):
+    ip_input = ui.TextInput(100,60)
+    port_input = ui.TextInput(100, 80)
+
+    renderer.show_gui(ui.GUI(
+        ui.Image("assets/sprites/titlebg.png", 0, 0),
+        ui.Image("assets/sprites/ui/inventorybg.png", 30, 30),
+        ui.Label("Join Multiplayer Game", 40, 40),
+        
+        ui.Label("Server IP", 40, 60),
+        ip_input,
+        ui.Label("Server Port", 40, 80),
+        port_input,
+
+        ui.Button("Join", 40, 120, lambda: join_client(renderer, game, ip_input.get_string, port_input.get_int)),
+        ui.Button("Quit", 80,120, lambda: quit_game(renderer))
+    ))
+
 def show_settings(renderer):
     username_text = ui.TextInput(120, 80)
     port_text = ui.TextInput(120, 120)
@@ -151,11 +183,15 @@ def main():
     game = Game(username)
     renderer = Renderer()
 
+
+
+    
+
     title_gui = ui.GUI(
         ui.Image("assets/sprites/titlebg.png", 0, 0),
         ui.Image("assets/sprites/title.png", 20, 20),
         ui.Button("Start Game", 40, 80, lambda: start_server(renderer, game)),
-        ui.Button("Join Game", 40, 120),
+        ui.Button("Join Game", 40, 120, lambda: show_join(renderer, game)),
     )
 
     menu_gui = ui.GUI(
