@@ -185,6 +185,16 @@ class Server:
         else:
             self.players[player_id].position = Vector(parsed["x"], parsed["y"])
 
+        self.players[player_id].packet_timer = 0
+        new_players = {player_id: self.players[player_id]}
+        for p in self.players:
+            if p != player_id:
+                self.players[p].packet_timer += deltatime
+                if self.players[p].packet_timer < 10:
+                    new_players[p] = self.players[p]
+
+        self.players = new_players
+
         to_attack = parsed["attack"]
         if to_attack != 255 and parsed["block"] not in [-1,-2]:
             if blockprop.BLOCKS[self.players[player_id].inventory.slots[parsed["block"]].item].damage > 1:

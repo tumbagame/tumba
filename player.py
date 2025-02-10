@@ -16,6 +16,7 @@ class Player:
         self.inventory = inventory.Inventory()
         self.animation.set_animation(1)
         self.health = 100
+        self.packet_timer = 0
 
     def serialize(self):
         return netencode.encode_string(self.name, 8) + netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)
