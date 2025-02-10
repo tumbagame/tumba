@@ -3,6 +3,9 @@ from game import BlockSet
 import netencode
 import entity
 from vector import Vector
+import player
+import copy
+from chunking import Chunk
 
 class Client:
     def __init__(self, ip="0.0.0.0", port=2828):
@@ -76,6 +79,7 @@ class Client:
         inventory_data = data[1024:1072]
         chunk_position = data[1072:1080]
         entity_data = data[1080:1160]
+        player_data = data[1160:1288]
 
         entity_decoder = netencode.PacketDecoder(entity_data)
         new_entities = []
@@ -99,11 +103,26 @@ class Client:
             new_entities.append(new_ent)
 
         game.entities = new_entities
+        
         game.player.inventory.load(inventory_data)
+
+        
+        game.onscreen_players = []
+        player_decoder = netencode.PacketDecoder(player_data)
+        for i in range(8):
+            player_name = player_decoder.pop_data(8)
+            if not player_name[0]:
+                continue
+            player_name = player_name.decode()
+            player_x = netencode.decode_int(player_decoder.pop_data(4))
+            player_y = netencode.decode_int(player_decoder.pop_data(4))
+            game.onscreen_players.append(player.Player(0,player_name,Vector(player_x, player_y)))
 
         game.tps = 1
         chunk_x = netencode.decode_int(chunk_position[0:4])
         chunk_y = netencode.decode_int(chunk_position[4:8])
-        game.world.get_chunk(chunk_x, chunk_y).load_bytes(chunk_data)
-        game.world.get_chunk(chunk_x, chunk_y).load_surface()
+        new_chunk = Chunk()
+        new_chunk.load_bytes(chunk_data)
+        new_chunk.load_surface()
+        game.client_queue.add_event(lambda: game.world.set_chunk_reference(chunk_x, chunk_y, new_chunk))
         sock.close()

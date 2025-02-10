@@ -9,6 +9,9 @@ class World:
         self.generator = Generator(randint(0, 65535))
         self.generate = generate
 
+    def set_chunk_reference(self, chunk_x, chunk_y, chunk):
+        self.chunks[(chunk_x, chunk_y)] = chunk
+
     def get_chunk(self, chunk_x, chunk_y):
         if (chunk_x, chunk_y) not in self.chunks:
             if self.generate:

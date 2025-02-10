@@ -1,7 +1,7 @@
 from vector import Vector
 from animation import Animation
 import inventory
-
+import netencode
 
 class Player:
     def __init__(self, id, name, position):
@@ -16,3 +16,6 @@ class Player:
         self.inventory = inventory.Inventory()
         self.animation.set_animation(1)
         self.health = 100
+
+    def serialize(self):
+        return netencode.encode_string(self.name, 8) + netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)

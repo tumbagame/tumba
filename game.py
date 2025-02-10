@@ -10,6 +10,7 @@ from control import BoolTrigger
 import blockprop
 import version
 import sound
+import timing
 
 class Game:
     def __init__(self, username):
@@ -40,6 +41,7 @@ class Game:
         self.attack = 255
         self.damage_cooldown = 0
         self.last_chosen_slot = 0
+        self.onscreen_players = []
 
         self.sstrigger = BoolTrigger()
 
@@ -48,6 +50,8 @@ class Game:
         self.can_air_jump = False
         self.cloud_pos = 0
         self.music = sound.MusicQueue()
+
+        self.client_queue = timing.EventQueue()
 
     def inventory_index_setter(self, index):
         def setter():
@@ -69,6 +73,7 @@ class Game:
         self.to_craft.append(index)
 
     def update(self, keys, mouse, deltatime):
+        self.client_queue.run_event()
         self.music.update(deltatime, self.player.position.y)
         
         if not self.running:

@@ -147,7 +147,16 @@ class Renderer:
             self.disp.blit(ent_frame,
                 self._game_to_screen(e.position, game.camera)
             )
-            
+
+        for p in game.onscreen_players:
+            pframe = p.animation.get_frame(deltatime)
+            self.disp.blit(pframe,
+                self._game_to_screen(p.position, game.camera)
+            )
+            self.disp.blit(
+                self.text.render(p.name),
+                self._game_to_screen(p.position + Vector(-16,-16), game.camera)
+            )
 
         player_frame = game.player.animation.get_frame(deltatime)
         damage_indicator = pg.Surface(player_frame.get_size(), pg.SRCALPHA)
