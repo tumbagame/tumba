@@ -62,7 +62,13 @@ def start_server(renderer, game):
 
     game.start()
 
-def join_client(renderer, game, ip_getter, port_getter):
+def join_client(renderer, game, username_getter, ip_getter, port_getter):
+    with open("assets/settings.json", "r") as fp:
+        settings_json = json.loads(fp.read())
+    settings_json["username"] = username_getter()
+    with open("assets/settings.json", "w") as fp:
+        fp.write(json.dumps(settings_json,indent=4))
+    game.player.name = settings_json["username"]
     client_thread = threading.Thread(target=run_mp_client, args=[renderer, game, ip_getter(), port_getter()])
     client_thread.start()
     renderer.clear_gui()
@@ -129,6 +135,11 @@ def create_inventory_gui(game, renderer):
 def show_join(renderer, game):
     ip_input = ui.TextInput(100,60)
     port_input = ui.TextInput(100, 80)
+    username_input = ui.TextInput(100, 100)
+    with open("assets/settings.json", "r") as fp:
+        settings_json = json.loads(fp.read())
+
+    username_input.set_string(settings_json["username"])
 
     renderer.show_gui(ui.GUI(
         ui.Image("assets/sprites/titlebg.png", 0, 0),
@@ -139,9 +150,11 @@ def show_join(renderer, game):
         ip_input,
         ui.Label("Server Port", 40, 80),
         port_input,
+        ui.Label("Username", 40, 100),
+        username_input,
 
-        ui.Button("Join", 40, 120, lambda: join_client(renderer, game, ip_input.get_string, port_input.get_int)),
-        ui.Button("Quit", 80,120, lambda: quit_game(renderer))
+        ui.Button("Join", 40, 140, lambda: join_client(renderer, game, username_input.get_string, ip_input.get_string, port_input.get_int)),
+        ui.Button("Quit", 80,140, lambda: quit_game(renderer))
     ))
 
 def show_settings(renderer):
