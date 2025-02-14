@@ -9,7 +9,7 @@ from mouse import Mouse
 import blockprop
 import ui
 import animation
-
+import player
 
 class Renderer:
     def __init__(self):
@@ -38,6 +38,8 @@ class Renderer:
 
         self.mouse = Mouse()
         self.in_gui = False
+        self.player_anim = player.Player(0,"", Vector()).animation
+        self.player_anim.set_animation(1)
 
     def _game_to_screen(self, position, camera):
         return (
@@ -138,7 +140,7 @@ class Renderer:
         )
 
         for e in game.entities:
-            e.animation.mirror = e.mirror
+            e.animation.mirror = (e.target.x - e.position.x) < 0
             ent_frame = e.animation.get_frame(deltatime)
             if e.damage_cooldown > 0.5:
                 dmg_indic = pg.Surface(ent_frame.get_size(), pg.SRCALPHA)
@@ -149,7 +151,8 @@ class Renderer:
             )
 
         for p in game.onscreen_players:
-            pframe = p.animation.get_frame(deltatime)
+            self.player_anim.mirror = (p.target.x - p.position.x) < 0
+            pframe = self.player_anim.get_frame(deltatime)
             self.disp.blit(pframe,
                 self._game_to_screen(p.position, game.camera)
             )

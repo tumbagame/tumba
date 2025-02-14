@@ -14,9 +14,9 @@ class Player:
         self.standing = False
         self.animation = Animation("assets/sprites/player.png", 3, 16, 15)
         self.inventory = inventory.Inventory()
-        self.animation.set_animation(1)
         self.health = 100
         self.packet_timer = 0
+        self.target = Vector()
 
     def serialize(self):
         return netencode.encode_byte(self.id) + netencode.encode_string(self.name, 8) + netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)

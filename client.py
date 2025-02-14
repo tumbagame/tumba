@@ -13,7 +13,7 @@ class Client:
         self.ip = ip
         self.port = port
         self.start_time = time.time()
-
+    
     def update(self, game):
         player_chunkx = int((game.player.position.x - 512) / 1024)
         player_chunky = int((game.player.position.y - 512) / 1024)
@@ -93,15 +93,18 @@ class Client:
             entity_x = netencode.decode_int(entity_decoder.pop_data(4))
             entity_y = netencode.decode_int(entity_decoder.pop_data(4))
             target = Vector(entity_x, entity_y)
-            direction = False
-            for ent in game.entities:
-                if ent.id == entity_id:
-                    direction = entity_x < ent.position.x
-                    target = ent.position + (Vector(entity_x,entity_y) - ent.position) * 0.2
-                    break
-            new_ent = entity.ENTITIES[entity_type].clone().with_id(entity_id).with_position(target)
-            new_ent.mirror = direction
+
+            if entity_type == 0:
+                continue
+
+            existing_entity = game.find_entity(entity_id)
+            if existing_entity is None:
+                new_ent = entity.ENTITIES[entity_type].clone().with_id(entity_id).with_position(target).with_target(target)
+            else:
+                new_ent = existing_entity.with_target(target)
+
             new_ent.damage_cooldown = 1.0 if entity_damaged else 0.0
+
             new_entities.append(new_ent)
 
         game.entities = new_entities
@@ -109,7 +112,8 @@ class Client:
         game.player.inventory.load(inventory_data)
 
         
-        game.onscreen_players = []
+        # game.onscreen_players = []
+        new_players = []
         player_decoder = netencode.PacketDecoder(player_data)
         for i in range(8):
             player_id = netencode.decode_byte(player_decoder.pop_data(1))
@@ -119,7 +123,18 @@ class Client:
             player_name = player_name.decode()
             player_x = netencode.decode_int(player_decoder.pop_data(4))
             player_y = netencode.decode_int(player_decoder.pop_data(4))
-            game.onscreen_players.append(player.Player(0,player_name,Vector(player_x, player_y)))
+
+            existing_player = game.find_player(player_id)
+            if existing_player is None:
+                nplayer = player.Player(player_id,player_name,Vector(player_x, player_y))
+                nplayer.target = nplayer.position
+            else:
+                nplayer = existing_player
+                nplayer.target = Vector(player_x, player_y)
+            
+            new_players.append(nplayer)
+
+        game.onscreen_players = new_players
 
         chunk_x = netencode.decode_int(chunk_position[0:4])
         chunk_y = netencode.decode_int(chunk_position[4:8])

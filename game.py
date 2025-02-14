@@ -191,6 +191,12 @@ class Game:
             pg.mouse.set_visible(True)
             self.in_inventory = True
 
+        for p in self.onscreen_players:
+            p.position += (p.target - p.position) * 0.1
+        
+        for e in self.entities:
+            e.position += (e.target - e.position) * 0.1
+
     def move_player(self, keys, deltatime):
         acc = Vector()
         if pg.K_a in keys or pg.K_LEFT in keys:
@@ -276,6 +282,18 @@ class Game:
         #     self.player.velocity.x *= physics.MAX_SPEED
         self.player.velocity.x *= physics.FRICTION**deltatime
         self.stand_timer = max(0, self.stand_timer - deltatime)
+
+    def find_player(self, player_id):
+        for i in self.onscreen_players:
+            if i.id == player_id:
+                return i
+        return None
+
+    def find_entity(self, entity_id):
+        for i in self.entities:
+            if i.id == entity_id:
+                return i
+        return None
 
 
 class BlockSet:
