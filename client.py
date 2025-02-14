@@ -6,11 +6,13 @@ from vector import Vector
 import player
 import copy
 from chunking import Chunk
+import time
 
 class Client:
     def __init__(self, ip="0.0.0.0", port=2828):
         self.ip = ip
         self.port = port
+        self.start_time = time.time()
 
     def update(self, game):
         player_chunkx = int((game.player.position.x - 512) / 1024)
@@ -79,7 +81,7 @@ class Client:
         inventory_data = data[1024:1072]
         chunk_position = data[1072:1080]
         entity_data = data[1080:1160]
-        player_data = data[1160:1288]
+        player_data = data[1160:1296]
 
         entity_decoder = netencode.PacketDecoder(entity_data)
         new_entities = []
@@ -110,6 +112,7 @@ class Client:
         game.onscreen_players = []
         player_decoder = netencode.PacketDecoder(player_data)
         for i in range(8):
+            player_id = netencode.decode_byte(player_decoder.pop_data(1))
             player_name = player_decoder.pop_data(8)
             if not player_name[0]:
                 continue
@@ -118,7 +121,6 @@ class Client:
             player_y = netencode.decode_int(player_decoder.pop_data(4))
             game.onscreen_players.append(player.Player(0,player_name,Vector(player_x, player_y)))
 
-        game.tps = 1
         chunk_x = netencode.decode_int(chunk_position[0:4])
         chunk_y = netencode.decode_int(chunk_position[4:8])
         new_chunk = Chunk()
@@ -126,3 +128,5 @@ class Client:
         new_chunk.load_surface()
         game.client_queue.add_event(lambda: game.world.set_chunk_reference(chunk_x, chunk_y, new_chunk))
         sock.close()
+        game.tps = round(1/max(0.001, (time.time() - self.start_time)), 2)
+        self.start_time = time.time()

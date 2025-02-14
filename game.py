@@ -141,6 +141,7 @@ class Game:
                 if self.destroy_timer >= 1:
                     self.world.set_block(self.selection_x, self.selection_y, -1)
                     self.to_set.append(BlockSet(self.selection_x, self.selection_y, -1))
+                    self.world.set_block(self.selection_x, self.selection_y, -1, True)
                     sound.BREAK.play()
             else:
                 self.destroy_timer = 0
@@ -173,10 +174,12 @@ class Game:
             self.player.health = 0
 
         if self.mouse_right_trigger.is_triggered(mouse.right):
-            self.to_set.append(
-                BlockSet(self.selection_x, self.selection_y, self.inventory_index)
-            )
-            sound.BREAK.play()
+            if self.world.get_block(self.selection_x, self.selection_y) == -1:
+                self.to_set.append(
+                    BlockSet(self.selection_x, self.selection_y, self.inventory_index)
+                )
+                self.world.set_block(self.selection_x, self.selection_y, self.player.inventory.slots[self.inventory_index].item, True)
+                sound.BREAK.play()
 
         if pg.K_ESCAPE in keys:
             pg.event.set_grab(False)

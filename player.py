@@ -19,4 +19,4 @@ class Player:
         self.packet_timer = 0
 
     def serialize(self):
-        return netencode.encode_string(self.name, 8) + netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)
+        return netencode.encode_byte(self.id) + netencode.encode_string(self.name, 8) + netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)

@@ -246,8 +246,8 @@ class Server:
             if p != player_id:
                 player_data += self.players[p].serialize()
 
-        if len(player_data) < 128:
-            player_data += b'\x00' * (128-len(player_data))
+        if len(player_data) < 136:
+            player_data += b'\x00' * (136-len(player_data))
 
         output_data = chunk_raw + inventory_raw + chunk_position_data + entity_data + player_data
         conn.sendall(output_data)
