@@ -160,15 +160,19 @@ def show_join(renderer, game):
 def show_settings(renderer):
     username_text = ui.TextInput(120, 80)
     port_text = ui.TextInput(120, 120)
+    sensitity_text = ui.Label("", 145, 100)
     with open("assets/settings.json", "r") as fp:
         settings_json = json.loads(fp.read())
 
     username_text.set_string(settings_json["username"])
     port_text.set_string(settings_json["port"])
+    sensitity_text.set_label(str(settings_json["sensitivity"]))
 
     def save_settings():
         settings_json["username"] = username_text.get_string()
         settings_json["port"] = port_text.get_int()
+        settings_json["sensitivity"] = int(sensitity_text.get_label())
+        renderer.set_sensitivity(settings_json["sensitivity"])
         with open("assets/settings.json", "w") as fp:
             fp.write(json.dumps(settings_json,indent=4))
 
@@ -179,9 +183,9 @@ def show_settings(renderer):
             ui.Label("Username", 40, 80),
             username_text,
             ui.Label("Mouse Sensitivity", 40, 100),
-            ui.Button("-", 120, 100),
-            ui.Button("+", 130, 100),
-            ui.Label("10", 145, 100),
+            ui.Button("-", 120, 100, lambda: sensitity_text.set_label(str(  max(1,int(sensitity_text.get_label()) - 1))  )),
+            ui.Button("+", 130, 100, lambda: sensitity_text.set_label(str(  min(20, int(sensitity_text.get_label()) + 1)) )),
+            sensitity_text,
             ui.Label("Server Port", 40, 120),
             port_text,
             ui.Button("Save", 40, 140, command=save_settings)
@@ -192,10 +196,12 @@ def show_settings(renderer):
 def main():
     pg.init()
     with open("assets/settings.json", "r") as fp:
-        username = json.loads(fp.read())["username"]
+        settings_json = json.loads(fp.read())
+    username = settings_json["username"]
+    sensitity = settings_json["sensitivity"]
     game = Game(username)
     renderer = Renderer()
-
+    renderer.set_sensitivity(sensitity)
 
 
     

@@ -114,7 +114,7 @@ class Game:
 
             pg.image.save(out_surf, "world.png")
 
-        self.selection_position += mouse.velocity * 0.01
+        self.selection_position += mouse.velocity * 0.001
 
         if self.selection_position.length() > self.selection_reach:
             self.selection_position = (
@@ -221,14 +221,14 @@ class Game:
             sleep(0.05)
 
         if pg.K_2 in keys:
-            greatest_damage = 1
+            greatest_damage = 0
             for index, item in enumerate(self.player.inventory.slots):
                 if blockprop.BLOCKS[item.item].damage > greatest_damage:
                     greatest_damage = blockprop.BLOCKS[item.item].damage
                     self.inventory_index = index
             
         if pg.K_3 in keys:
-            greatest_damage = 1
+            greatest_damage = 0
             for index, item in enumerate(self.player.inventory.slots):
                 if blockprop.BLOCKS[item.item].mine_strength > greatest_damage:
                     greatest_damage = blockprop.BLOCKS[item.item].mine_strength

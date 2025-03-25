@@ -139,6 +139,7 @@ class ItemSlot(UIComponent):
 
 class Label(UIComponent):
     def __init__(self, label, x, y):
+        self.label = label
         self.text_image = text.Text().render(label)
         self.x = x
         self.y = y
@@ -148,6 +149,10 @@ class Label(UIComponent):
 
     def set_label(self, label):
         self.text_image = text.Text().render(label)
+        self.label = label
+
+    def get_label(self):
+        return self.label
 
     def get_pos(self):
         return (self.x, self.y)

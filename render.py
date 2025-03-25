@@ -32,6 +32,7 @@ class Renderer:
         self.select_box = pg.Surface((32, 32), pg.SRCALPHA)
         self.select_box.fill((255, 255, 255, 127))
         self.health_bar_state = 0
+        self.sensitivity = 1
 
         self.destroy = animation.Animation("assets/sprites/destroy.png", 1, 16, 1)
         self.keys_down = []
@@ -60,6 +61,9 @@ class Renderer:
     def quit_game(self):
         pg.quit()
         self.running = False
+
+    def set_sensitivity(self, sensitivity):
+        self.sensitivity = sensitivity
 
     def update(self, game, deltatime):
         if not self.running:
@@ -96,7 +100,7 @@ class Renderer:
         self.mouse.position = Vector(*pg.mouse.get_pos())
         self.mouse.position.x = self.mouse.position.x / self.window.get_width() * 512
         self.mouse.position.y = self.mouse.position.y / self.window.get_height() * 256
-        self.mouse.velocity = Vector(*pg.mouse.get_rel())
+        self.mouse.velocity = Vector(*pg.mouse.get_rel()) * self.sensitivity
 
         for i in range(2):
             self.disp.blit(
