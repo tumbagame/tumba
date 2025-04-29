@@ -81,7 +81,9 @@ class Server:
                     if dst < closest_distance:
                         closest_player = self.players[player]
                         closest_distance = dst
-
+            if closest_distance > 64*32:
+                ent.lifetime = 0
+                ent.health = 0
             for other_ent in self.entities:
                 if other_ent.id != ent.id:
 
@@ -249,7 +251,7 @@ class Server:
         if len(player_data) < 136:
             player_data += b'\x00' * (136-len(player_data))
 
-        output_data = chunk_raw + inventory_raw + chunk_position_data + entity_data + player_data
+        output_data = chunk_raw + inventory_raw + chunk_position_data + entity_data + player_data + netencode.encode_byte(len(self.entities))
         conn.sendall(output_data)
         conn.close()
         self.offset_x += 1

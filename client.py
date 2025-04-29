@@ -82,6 +82,9 @@ class Client:
         chunk_position = data[1072:1080]
         entity_data = data[1080:1160]
         player_data = data[1160:1296]
+        entity_count = data[1296].to_bytes(1,'little')
+
+        game.entity_count = netencode.decode_byte(entity_count)
 
         entity_decoder = netencode.PacketDecoder(entity_data)
         new_entities = []

@@ -1,8 +1,8 @@
 import pygame as pg
 import json
 import random
-pg.mixer.pre_init(buffer=1024)
-pg.mixer.init(buffer=1024)
+pg.mixer.pre_init(buffer=2048)
+pg.mixer.init(buffer=2048)
 
 class MusicQueue:
     def __init__(self):

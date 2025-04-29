@@ -42,6 +42,7 @@ class Game:
         self.damage_cooldown = 0
         self.last_chosen_slot = 0
         self.onscreen_players = []
+        self.entity_count = 0
 
         self.sstrigger = BoolTrigger()
 

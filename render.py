@@ -230,6 +230,8 @@ class Renderer:
         if self.fps_update > 60:
             self.fps_update = 0
             self.fps_text = f"{round(game.fps,2)}fps, {game.tps}tps"
+            if version.DEBUG:
+                self.fps_text += f", {game.entity_count} entities"
         self.disp.blit(
             self.text.render(self.fps_text), (8, 16)
         )
