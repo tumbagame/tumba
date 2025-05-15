@@ -3,7 +3,6 @@ import pygame as pg
 SKY = pg.image.load("assets/sprites/sky.png")
 MOUNTAINS0 = pg.image.load("assets/sprites/mountains0.png")
 MOUNTAINS1 = pg.image.load("assets/sprites/mountains1.png")
-PLAYER = pg.image.load("assets/sprites/player/idle.png")
 ATLAS = pg.image.load("assets/sprites/atlas.png")
 CAVE = pg.image.load("assets/sprites/cave.png")
 LIGHT = pg.image.load("assets/sprites/light.png")
