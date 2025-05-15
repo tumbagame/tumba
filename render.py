@@ -236,7 +236,7 @@ class Renderer:
             self.text.render(self.fps_text), (8, 16)
         )
         self.disp.blit(
-            self.text.render(f"x: {int(game.player.position.x)}, y: {int(-game.player.position.y)}"), (10,480)
+            self.text.render(f"x: {int(game.player.position.x)}, y: {int(-game.player.position.y)}"), (10,240)
         )
 
         self.window.blit(
