@@ -86,7 +86,7 @@
             "lifetime": 86400,
             "hitboxSize": [20,24],
             "hitboxOffset": [2,37],
-            "spawnRate": 1.0,
+            "spawnRate": 0.0,
             "spawnMin": -20,
             "spawnMax": 20
         }
