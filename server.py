@@ -219,18 +219,22 @@ class Server:
                 )
                 self.world.set_block(int(parsed["bx"]), int(parsed["by"]), -1, True)
             else:
-                if (
-                    self.players[player_id].inventory.slots[block].has_item()
-                    and old_block == -1
-                ):
-                    self.world.set_block(
-                        int(parsed["bx"]),
-                        int(parsed["by"]),
-                        self.players[player_id].inventory.slots[block].item,
-                        True
-                    )
-                    
-                    self.players[player_id].inventory.remove_item(block)
+                if self.players[player_id].inventory.slots[block].has_item():
+                    if self.players[player_id].inventory.slots[block].item == 10:
+                        self.players[player_id].inventory.remove_item(block)
+                    elif old_block == -1:
+                        self.world.set_block(
+                            int(parsed["bx"]),
+                            int(parsed["by"]),
+                            self.players[player_id].inventory.slots[block].item,
+                            True
+                        )
+                        self.players[player_id].inventory.remove_item(block)
+                    elif old_block == 46:
+                        if self.players[player_id].inventory.slots[block].item == 8:
+                            self.players[player_id].inventory.remove_item(block)
+                            self.players[player_id].inventory.add_item(10)
+                            
         
         chunk_raw = self.world.get_chunk(chunk_x, chunk_y).serialize()
         inventory_raw = self.players[player_id].inventory.serialize()

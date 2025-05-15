@@ -14,7 +14,7 @@ class InventorySlot:
     def __repr__(self):
         return f"[{self.item}, {self.count}]"
 
-debug_items = [7, 12, 61, 39, 52, 60]
+debug_items = [7, 12, 61, 39, 52, 60, 70, 8]
 
 class Inventory:
     def __init__(self):

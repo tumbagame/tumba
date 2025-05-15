@@ -71,6 +71,24 @@
             "spawnRate": 0.5,
             "spawnMin": -20,
             "spawnMax": 20
+        },
+        {
+            "name": "Angry Pig",
+            "animation": "assets/sprites/pig.png",
+            "frames": 16,
+            "fps": 30,
+            "health": 60,
+            "damage": 10,
+            "drop": 8,
+            "hostile": true,
+            "scared": false,
+            "gravity": true,
+            "lifetime": 86400,
+            "hitboxSize": [20,24],
+            "hitboxOffset": [2,37],
+            "spawnRate": 1.0,
+            "spawnMin": -20,
+            "spawnMax": 20
         }
     ]
 }

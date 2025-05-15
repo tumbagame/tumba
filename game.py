@@ -71,6 +71,7 @@ class Game:
         self.running = True
 
     def craft(self, index):
+        sound.HIT.play()
         self.to_craft.append(index)
 
     def update(self, keys, mouse, deltatime):
@@ -173,9 +174,18 @@ class Game:
 
         if self.player.health <= 0:
             self.player.health = 0
+        if self.player.health >= 100:
+            self.player.health = 100
+        
 
         if self.mouse_right_trigger.is_triggered(mouse.right):
-            if self.world.get_block(self.selection_x, self.selection_y) == -1:
+            if self.player.inventory.slots[self.inventory_index].item == 10:
+                self.to_set.append(
+                    BlockSet(0, 0, self.inventory_index)
+                )
+                self.player.health += 10
+                sound.EAT.play()
+            elif self.world.get_block(self.selection_x, self.selection_y) in [-1, 46]:
                 self.to_set.append(
                     BlockSet(self.selection_x, self.selection_y, self.inventory_index)
                 )
