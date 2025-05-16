@@ -83,7 +83,6 @@ class Server:
                         closest_distance = dst
             if closest_distance > 64*32:
                 ent.lifetime = 0
-                ent.health = 0
             for other_ent in self.entities:
                 if other_ent.id != ent.id:
 
@@ -128,7 +127,7 @@ class Server:
             ent.lifetime -= deltatime
             if ent.lifetime > 0 and ent.health > 0:
                 next_entities.append(ent)
-            elif ent.drop != -1:
+            elif ent.health < 1 and ent.drop != -1:
                 closest_player.inventory.add_item(ent.drop)
 
             if ent.damage_cooldown >= 0:
