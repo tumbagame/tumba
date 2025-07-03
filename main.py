@@ -11,6 +11,7 @@ import ui
 import mouse
 import version
 import json
+import datetime
 
 def run_server(renderer):
 
@@ -23,7 +24,13 @@ def run_server(renderer):
     deltatime = 0
     while renderer.running:
         now = time()
-        server.update(deltatime)
+        try:
+            server.update(deltatime)
+        except Exception as e:
+            time_now = datetime.datetime.now().strftime("%B %d %Y - %I:%M%p")
+            exclog = f"SERVER ERROR [{time_now}]: {e}\n"
+            with open("assets/serverlog.txt", "a") as fp:
+                fp.write(exclog)
         deltatime = time() - now
     server.shutdown()
     print("Server Shut Down")
