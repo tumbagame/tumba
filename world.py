@@ -4,9 +4,9 @@ from chunking import Chunk
 
 
 class World:
-    def __init__(self, generate=False):
+    def __init__(self, generate=False, seed=None):
         self.chunks = {}
-        self.generator = Generator(randint(0, 65535))
+        self.generator = Generator(randint(0, 65535) if (seed is None) else seed)
         self.generate = generate
 
     def set_chunk_reference(self, chunk_x, chunk_y, chunk):

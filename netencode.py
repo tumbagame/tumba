@@ -24,6 +24,8 @@ class PacketDecoder:
         self.index = 0
         self.data = data
     
+    def is_empty(self):
+        return self.index >= len(self.data)
     def pop_data(self, num_bytes):
         output = self.data[self.index:self.index + num_bytes]
         self.index += num_bytes

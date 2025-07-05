@@ -8,11 +8,14 @@ import entity
 import physics
 import random
 import json
+import zlib
+import chunking
 
 class Server:
     def __init__(self, port=2828):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.running = True
+        self.filename = "assets/saves/world.tumba"
         trying = True
         port_offset = 0
         tries = 0
@@ -268,3 +271,32 @@ class Server:
             self.tps = 99.99
         else:
             self.tps = 1.0 / (deltatime)
+
+
+    def save_to_file(self):
+        out_bin = netencode.encode_int(self.world.generator.seed)
+        for x,y in self.world.chunks:
+            chunk = self.world.get_chunk(x,y)
+            out_bin += netencode.encode_int(x) + netencode.encode_int(y)
+            out_bin += chunk.serialize()
+
+        with open(self.filename, "wb") as fp:
+            fp.write(zlib.compress(out_bin))
+
+    def load_from_file(self):
+        try:
+            with open(self.filename, "rb") as fp:
+                in_bytes = zlib.decompress(fp.read())
+        except Exception as e:
+            print("No save file. Creating new world.")
+            return
+        save_decoder = netencode.PacketDecoder(in_bytes)
+        
+        self.world = World(True, netencode.decode_int(save_decoder.pop_data(4)))
+        while not save_decoder.is_empty():
+            chunk_x = netencode.decode_int(save_decoder.pop_data(4))
+            chunk_y = netencode.decode_int(save_decoder.pop_data(4))
+            chunk_data = save_decoder.pop_data(1024)
+            chunk = chunking.Chunk()
+            chunk.load_bytes(chunk_data)
+            self.world.set_chunk_reference(chunk_x,chunk_y,chunk)

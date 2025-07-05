@@ -1,3 +1,6 @@
+# World save files
+*.tumba
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

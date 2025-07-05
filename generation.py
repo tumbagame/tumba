@@ -48,6 +48,7 @@ class Biome:
 class Generator:
     def __init__(self, seed=1234):
         self.noise = OpenSimplex(seed)
+        self.seed = seed
         with open("assets/terrain.json") as fp:
             properties = json.loads(fp.read())
         self.size = properties["size"]

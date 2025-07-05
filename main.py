@@ -18,6 +18,7 @@ def run_server(renderer):
     with open("assets/settings.json", "r") as fp:
         port = json.loads(fp.read())["port"]
     server = Server(port=int(port))
+    server.load_from_file()
     print("Server Started")
     if not server.running:
         renderer.running = False
@@ -32,6 +33,7 @@ def run_server(renderer):
             with open("assets/serverlog.txt", "a") as fp:
                 fp.write(exclog)
         deltatime = time() - now
+    server.save_to_file()
     server.shutdown()
     print("Server Shut Down")
 
