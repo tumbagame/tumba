@@ -1,5 +1,6 @@
 # World save files
 *.tumba
+world.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

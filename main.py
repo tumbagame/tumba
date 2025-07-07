@@ -12,14 +12,16 @@ import mouse
 import version
 import json
 import datetime
+import glob
 
-def run_server(renderer):
+def run_server(renderer, filename):
 
     with open("assets/settings.json", "r") as fp:
         port = json.loads(fp.read())["port"]
     server = Server(port=int(port))
+    server.filename = filename
     server.load_from_file()
-    print("Server Started")
+    print(f"Server Started. Save: {filename}")
     if not server.running:
         renderer.running = False
     deltatime = 0
@@ -60,9 +62,11 @@ def run_mp_client(renderer, game, ip, port):
     client.update(game)
     print("Client Disconnected")
 
-def start_server(renderer, game):
-
-    server_thread = threading.Thread(target=run_server, args=[renderer])
+def start_server(renderer, game, filename):
+    if not filename.replace(".tumba","").split("/")[-1].split("\\")[-1]:
+        print("Empty save name.")
+        return
+    server_thread = threading.Thread(target=run_server, args=[renderer,filename])
     server_thread.start()
     client_thread = threading.Thread(target=run_client, args=[renderer, game])
     client_thread.start()
@@ -201,6 +205,34 @@ def show_settings(renderer):
         ).can_escape()
     )
 
+def world_select(renderer, game):
+    world_saves = glob.glob("assets/saves/*.tumba")
+
+    world_buttons = []
+    button_x = 40
+    button_y = 80
+    for save in world_saves:
+        savetext = save.replace(".tumba","").split("/")[-1].split("\\")[-1]
+        btn = ui.Button(savetext, button_x, button_y, (lambda txt: (lambda: start_server(renderer,game,txt) ))(save) )
+        x_size = btn.image.get_width()
+        button_x += x_size + 4
+        if button_x > 200:
+            button_x = 40
+            button_y += 20
+        world_buttons.append(btn)
+
+    world_name = ui.TextInput(40,60)
+    renderer.show_gui(
+        ui.GUI(
+            ui.Image("assets/sprites/titlebg.png", 0, 0),
+            ui.Image("assets/sprites/ui/inventorybg.png", 30, 30),
+            ui.Label("Select World", 40,40),
+            world_name,
+            ui.Button("New World", 110,60, lambda: start_server(renderer,game, f"assets/saves/{world_name.get_string()}.tumba")),
+            *world_buttons
+        )
+    )
+    # start_server(renderer, game)
 
 def main():
     pg.init()
@@ -218,7 +250,7 @@ def main():
     title_gui = ui.GUI(
         ui.Image("assets/sprites/titlebg.png", 0, 0),
         ui.Image("assets/sprites/title.png", 20, 20),
-        ui.Button("Start Game", 40, 80, lambda: start_server(renderer, game)),
+        ui.Button("Start Game", 40, 80, lambda: world_select(renderer,game)),
         ui.Button("Join Game", 40, 120, lambda: show_join(renderer, game)),
     )
 
