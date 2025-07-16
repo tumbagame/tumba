@@ -13,7 +13,7 @@ import sound
 import timing
 
 class Game:
-    def __init__(self, username):
+    def __init__(self, username, playerid):
         self.player = Player(randint(0, 255), username, Vector())
         self.player.position.y = -640
         self.camera = Vector()

@@ -13,6 +13,7 @@ import version
 import json
 import datetime
 import glob
+import random
 
 def run_server(renderer, filename):
 
@@ -240,7 +241,15 @@ def main():
         settings_json = json.loads(fp.read())
     username = settings_json["username"]
     sensitity = settings_json["sensitivity"]
-    game = Game(username)
+    playerid = settings_json["id"]
+
+    if playerid == -1:
+        playerid = random.randint(0,255)
+        settings_json["id"] = playerid
+        with open("assets/settings.json", "w") as fp:
+            fp.write(json.dumps(settings_json,indent=2))
+
+    game = Game(username,playerid)
     renderer = Renderer()
     renderer.set_sensitivity(sensitity)
 
