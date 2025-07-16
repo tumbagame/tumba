@@ -20,3 +20,11 @@ class Player:
 
     def serialize(self):
         return netencode.encode_byte(self.id) + netencode.encode_string(self.name, 8) + netencode.encode_int(self.position.x) + netencode.encode_int(self.position.y)
+
+    def file_serialize(self):
+        return netencode.encode_byte(self.id) + self.inventory.serialize()
+
+    def deserialize(self, data):
+        decoder = netencode.PacketDecoder(data)
+        self.id = netencode.decode_byte(decoder.pop_data(1))
+        self.inventory.load(decoder.pop_data(48))

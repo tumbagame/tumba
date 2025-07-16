@@ -14,7 +14,7 @@ import timing
 
 class Game:
     def __init__(self, username, playerid):
-        self.player = Player(randint(0, 255), username, Vector())
+        self.player = Player(playerid, username, Vector())
         self.player.position.y = -640
         self.camera = Vector()
         self.camera_filter = VectorFilter(0.1)

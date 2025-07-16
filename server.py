@@ -10,12 +10,14 @@ import random
 import json
 import zlib
 import chunking
+import version
 
 class Server:
     def __init__(self, port=2828):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.running = True
         self.filename = "assets/saves/world.tumba"
+        self.offlineplayers = {}
         trying = True
         port_offset = 0
         tries = 0
@@ -186,6 +188,9 @@ class Server:
             self.players[player_id] = Player(
                 player_id, parsed["name"], Vector(parsed["x"], parsed["y"])
             )
+            if player_id in self.offlineplayers:
+                self.players[player_id].deserialize(self.offlineplayers[player_id])
+                del self.offlineplayers[player_id]
         else:
             self.players[player_id].position = Vector(parsed["x"], parsed["y"])
 
@@ -196,6 +201,8 @@ class Server:
                 self.players[p].packet_timer += deltatime
                 if self.players[p].packet_timer < 10:
                     new_players[p] = self.players[p]
+                else:
+                    self.offlineplayers[p] = self.players[p].file_serialize()
 
         self.players = new_players
 
@@ -273,8 +280,21 @@ class Server:
             self.tps = 1.0 / (deltatime)
 
 
+
     def save_to_file(self):
-        out_bin = netencode.encode_int(self.world.generator.seed)
+
+        for p in self.players:
+            self.offlineplayers[p] = self.players[p].file_serialize()
+
+        
+
+        out_bin = netencode.encode_short(version.SAVEVERSION)
+
+        out_bin += netencode.encode_short(len(self.offlineplayers))
+        for p in self.offlineplayers:
+            out_bin += self.offlineplayers[p]
+
+        out_bin += netencode.encode_int(self.world.generator.seed)
         for x,y in self.world.chunks:
             chunk = self.world.get_chunk(x,y)
             out_bin += netencode.encode_int(x) + netencode.encode_int(y)
@@ -291,6 +311,12 @@ class Server:
             print("No save file. Creating new world.")
             return
         save_decoder = netencode.PacketDecoder(in_bytes)
+        save_version = netencode.decode_short(save_decoder.pop_data(2))
+
+        player_count = netencode.decode_short(save_decoder.pop_data(2))
+        for i in range(player_count):
+            pdata = save_decoder.pop_data(49)
+            self.offlineplayers[pdata[0]] = pdata
         
         self.world = World(True, netencode.decode_int(save_decoder.pop_data(4)))
         while not save_decoder.is_empty():
