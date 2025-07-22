@@ -11,6 +11,7 @@ import json
 import zlib
 import chunking
 import version
+import datetime
 
 class Server:
     def __init__(self, port=2828):
@@ -231,6 +232,8 @@ class Server:
                 if self.players[player_id].inventory.slots[block].has_item():
                     if self.players[player_id].inventory.slots[block].item == 10:
                         self.players[player_id].inventory.remove_item(block)
+                    elif self.players[player_id].inventory.slots[block].item == 13:
+                        self.dump_debug()
                     elif old_block == -1:
                         self.world.set_block(
                             int(parsed["bx"]),
@@ -280,6 +283,39 @@ class Server:
             self.tps = 1.0 / (deltatime)
 
 
+    def dump_debug(self):
+        time_now = datetime.datetime.now().strftime("%B %d %Y - %I:%M%p")
+        debug_string = f"====Debug Radio=={time_now}==\n"
+
+        debug_string += "Online Players:\n"
+        for p in self.players:
+            player = self.players[p]
+            debug_string += f"  - {self.get_player_string(player,p)}\n"
+        debug_string += "Offline Players:\n"
+        for p in self.offlineplayers:
+            player = Player(0,"",Vector())
+            player.deserialize(self.offlineplayers[p])
+            debug_string += f"  - {self.get_player_string(player,p)}\n"
+        debug_string += "Entities:\n"
+        for e in self.entities:
+            debug_string += f"  - {self.get_entity_string(e)}\n"
+
+        debug_string += f"================\n\n"
+        with open("assets/serverlog.txt", "a") as fp:
+            fp.write(debug_string)
+
+    def get_player_string(self, player, playerid):
+        pstring = f"id:{playerid}, name:{player.name}, position:({int(player.position.x/32)},{int(player.position.y/32)}) Inventory: "
+
+        for item in player.inventory.slots:
+            if item.item != -1 and item.count != 0:
+                pstring += f"{blockprop.BLOCKS[item.item].name} x{item.count}, "
+                
+        return pstring
+
+    def get_entity_string(self, ent):
+        estring = f"id:{ent.id}, type:{ent.entity_type}, position:({int(ent.position.x/32)},{int(ent.position.y/32)}), health:{int(ent.health)}"
+        return estring
 
     def save_to_file(self):
 

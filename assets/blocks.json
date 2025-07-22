@@ -105,12 +105,12 @@
       "collision": true
     },
     {
-      "name": "",
-      "drops": -1,
+      "name": "Debug Radio",
+      "drops": 13,
       "breakWith": 0,
       "mineStrength": 0,
       "damage": 1,
-      "collision": true
+      "collision": false
     },
     {
       "name": "Purplegem Ore",
